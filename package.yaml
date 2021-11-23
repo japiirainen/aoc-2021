@@ -1,0 +1,31 @@
+name: AOC2021
+version: 0.0.1
+synopsis: Advent of code solutions for 2021
+description: See README at <https://github.com/japiirainen/aoc-2021#readme>
+maintainer: Joona Piirainen <joona.piirainen@gmail.com>
+github: japiirainen/aoc-2021
+category: Development
+extra-source-files:
+  - CHANGELOG.md
+
+ghc-options: -Wall
+
+dependencies:
+  - base
+  - megaparsec
+  - mtl
+  - containers
+  - pretty
+  - text
+  - directory
+
+library:
+  source-dirs: src
+  exposed-modules:
+    - AOC2021
+
+executable:
+  main: Main.hs
+  source-dirs: app
+  dependencies:
+    - AOC2021

@@ -10,7 +10,7 @@
 {-# LANGUAGE NamedFieldPuns             #-}
 
 -- | Small parser combinator library. (Applicative style)
-module Util.Parsija where
+module AOC.Parsija where
 
 import           Control.Applicative (Alternative (..), Applicative (liftA2),
                                       (<**>), (<|>))

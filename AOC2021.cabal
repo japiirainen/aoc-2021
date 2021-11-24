@@ -24,6 +24,9 @@ library
   exposed-modules:
       AOC2021
   other-modules:
+      AOC.List.Extended
+      AOC.List.Transformer
+      AOC.Parsija
       Paths_AOC2021
   hs-source-dirs:
       src

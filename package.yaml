@@ -24,6 +24,9 @@ library:
   source-dirs: src
   exposed-modules:
     - AOC2021
+    - AOC.List.Transformer
+    - AOC.List.Extended
+    - AOC.Parsija
 
 executable:
   main: Main.hs

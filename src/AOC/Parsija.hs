@@ -13,15 +13,20 @@
 module AOC.Parsija where
 
 import           Control.Applicative (Alternative (..), Applicative (liftA2),
-                                      (<**>), (<|>))
+                                      optional, (<**>), (<|>))
+import           Data.Char           (isAlpha, isDigit, isSpace)
 import           Data.Function       (on)
 import           Data.List           (intercalate, intersperse)
-import           Data.Maybe          (catMaybes)
+import           Data.Maybe          (catMaybes, fromMaybe)
 import           Data.Set            (Set)
 
+import           Control.Monad       (void)
 import           Control.Selective   (Selective (..))
 import           Data.Foldable       (asum)
+import           Data.Functor        (($>))
+
 import qualified Data.Set            as Set
+import qualified System.IO           as IO
 
 data Pos = Pos
     {_line :: Int
@@ -325,3 +330,30 @@ chainl1 = infixl1 id
 
 chainr1 :: Parser a -> Parser (a -> a -> a) -> Parser a
 chainr1 = infixr1 id
+
+many1 :: Parser a -> Parser [a]
+many1 p = (:) <$> p <*> many p
+
+alpha :: Parser Char
+alpha = satisfy isAlpha <?> "alpha"
+
+digit :: Parser Char
+digit = satisfy isDigit <?> "digit"
+
+spaces :: Parser ()
+spaces = void $ many (satisfy isSpace <?> "whitespace")
+
+decimal :: (Integral a, Read a) => Parser a
+decimal = read <$> many1 digit
+
+signedDecimal :: Parser Int
+signedDecimal = fmap (fromMaybe id) (optional (char '-' $> negate)) <*> decimal
+
+sepBy :: Parser a -> Parser b -> Parser [a]
+sepBy p s = sepBy1 p s <|> pure []
+
+sepBy1 :: Parser a -> Parser b -> Parser [a]
+sepBy1 p s = (:) <$> p <*> many (s *> p)
+
+hRunParser :: IO.Handle -> Parser a -> IO a
+hRunParser h p = IO.hGetContents h >>= either Prelude.fail pure . parse p

@@ -27,6 +27,10 @@ library
       AOC.List.Extended
       AOC.Parsija
   other-modules:
+      AOC.Dijkstra
+      AOC.PQ
+      AOC.Testi
+      Days.Day1
       Paths_AOC2021
   hs-source-dirs:
       src

@@ -31,6 +31,7 @@ library
       AOC.PQ
       AOC.Testi
       Days.Day1
+      Days.Day2
       Paths_AOC2021
   hs-source-dirs:
       src

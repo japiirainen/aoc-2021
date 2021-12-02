@@ -28,6 +28,7 @@ library
       AOC.Parsija
   other-modules:
       AOC.Dijkstra
+      AOC.Main
       AOC.PQ
       AOC.Testi
       Days.Day1

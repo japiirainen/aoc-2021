@@ -1,359 +1,113 @@
-{-# LANGUAGE DerivingStrategies         #-}
-{-# LANGUAGE FlexibleInstances          #-}
-{-# LANGUAGE InstanceSigs               #-}
-{-# LANGUAGE LambdaCase                 #-}
-{-# LANGUAGE RecordWildCards            #-}
-{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
-{-# LANGUAGE RankNTypes                 #-}
-{-# OPTIONS_GHC -Wno-name-shadowing #-}
-{-# LANGUAGE NamedFieldPuns             #-}
+{-# LANGUAGE DeriveFunctor #-}
+module AOC.Parsija
+    ( Parser
 
--- | Small parser combinator library. (Applicative style)
-module AOC.Parsija where
+    , anyChar
+    , satisfy
+    , char
+    , string
 
-import           Control.Applicative (Alternative (..), Applicative (liftA2),
-                                      optional, (<**>), (<|>))
-import           Data.Char           (isAlpha, isDigit, isSpace)
-import           Data.Function       (on)
-import           Data.List           (intercalate, intersperse)
-import           Data.Maybe          (catMaybes, fromMaybe)
-import           Data.Set            (Set)
+    , many1
+    , sepBy
+    , sepBy1
+    , chainl1
 
+    , alpha
+    , digit
+    , spaces
+    , decimal
+    , signedDecimal
+
+    , runParser
+    , hRunParser
+    ) where
+
+import           Control.Applicative (Alternative (..), optional)
 import           Control.Monad       (void)
-import           Control.Selective   (Selective (..))
-import           Data.Foldable       (asum)
+import           Data.Char           (isAlpha, isDigit, isSpace)
 import           Data.Functor        (($>))
-
-import qualified Data.Set            as Set
+import           Data.List           (foldl', intercalate)
+import           Data.Maybe          (fromMaybe)
 import qualified System.IO           as IO
 
-data Pos = Pos
-    {_line :: Int
-    , _col :: Int
-    }
+data ParseResult t a
+    = ParseSuccess !a !Int [t]
+    | ParseError [(Int, String)]
+    deriving (Functor, Show)
 
-instance Eq Pos where
-    (==) :: Pos -> Pos -> Bool
-    e1 == e2 = _line e1 == _line e2 && _col e1 == _col e2
+newtype Parser t a = Parser (Int -> [t] -> ParseResult t a)
 
-instance Ord Pos where
-    (<=) :: Pos -> Pos -> Bool
-    e1 <= e2 = _line e1 <= _line e2 && _col e1 <= _col e2
+instance Functor (Parser t) where
+    fmap f (Parser g) = Parser (\i ts -> fmap f (g i ts))
 
-instance Show Pos where
-    show :: Pos -> String
-    show Pos{..} = "(" ++ show _line ++ ", " ++ show _col ++ ")"
+instance Applicative (Parser t) where
+    pure x                = Parser (\i ts -> ParseSuccess x i ts)
+    Parser f <*> Parser g = Parser (\i ts ->
+        case f i ts of
+            ParseError errs        -> ParseError errs
+            ParseSuccess x i' ts'  -> case g i' ts' of
+                ParseError errs         -> ParseError errs
+                ParseSuccess y i'' ts'' -> ParseSuccess (x y) i'' ts'')
 
-data Input = Input
-    { str  :: String
-    , _pos:: Pos
-    }
+instance Alternative (Parser t) where
+    empty                 = Parser (\_ _ -> ParseError [])
+    Parser f <|> Parser g = Parser (\i ts ->
+        case f i ts of
+            success@(ParseSuccess _ _ _) -> success
+            ParseError errs1             -> case g i ts of
+                success@(ParseSuccess _ _ _) -> success
+                ParseError errs2             -> ParseError (errs1 ++ errs2))
 
-data Error = Oops
-    { expected :: Set Item
-    , unexpect :: Maybe Item
-    , msgs     :: [String]
-    , errPos   :: Pos
-    } deriving stock Show
+satisfy :: String -> (t -> Bool) -> Parser t t
+satisfy descr p = Parser (\i ts -> case ts of
+    (t : ts') | p t -> ParseSuccess t (i + 1) ts'
+    _               -> ParseError [(i, descr)])
 
-instance Eq Error where
-    (==) :: Error -> Error -> Bool
-    (==) = (==) `on` errPos
+anyChar :: Parser t t
+anyChar = satisfy "any character" (const True)
 
-instance Ord Error where
-    (<=) :: Error -> Error -> Bool
-    (<=) = (<=) `on` errPos
+char :: (Eq t, Show t) => t -> Parser t ()
+char c = void $ satisfy (show c) (== c)
 
-newtype Max a = Max { getMax :: a }
-instance (Alternative f, Ord a) => Semigroup (Max (f a)) where
-    Max m <> Max n = Max $ (max <$> m <*> n) <|> m <|> n
+string :: (Eq t, Show t) => [t] -> Parser t ()
+string []       = pure ()
+string (x : xs) = char x *> string xs
 
-instance Semigroup Error where
-    e1 <> e2
-        | e1 == e2 = e1
-        { expected = expected e1 <> expected e2, unexpect = getMax (Max (unexpect e1) <> Max (unexpect e2)), msgs = msgs e1 <> msgs e2 }
-        | e1 > e2 = e1
-        | e1 < e2 = e2
-
-format :: String -> Error -> String
-format input Oops{..} =
-    intercalate "\n " (catMaybes ([preamble `joinTogether` unexpectLine, expectedLine] ++ map Just msgs ++ [problem, caret]))
-    where
-        preamble = Just $ show errPos ++ ":"
-        unexpectLine = ("unexpected " ++) . show <$> unexpect
-        expectedLine = fmap ("expected " ++) $ foldMap Just $ intersperse ", " $ map show $ Set.toList expected
-        inputLines = lines input
-        problem = Just $ "> " ++ if null inputLines then "" else inputLines !! (_line errPos - 1)
-        caret = Just $ "  " ++ replicate (_col errPos - 1) ' '  ++ "^"
-        joinTogether p q = liftA2 (\x y -> x ++ " " ++ y) p q <|> p <|> q
-
-data Item
-    = Raw String
-    | Named String
-    | EndOfInput
-    deriving stock (Eq, Ord)
-
-instance Show Item where
-    show :: Item -> String
-    show = \case
-      Raw " "     -> "space"
-      Raw "\n"    -> "newline"
-      Raw "\t"    -> "tab"
-      Raw raw     -> show (takeWhile (/= ' ') raw)
-      Named named -> named
-      EndOfInput  -> "end of input"
-
-newtype Hints = Hints [Set Item] deriving newtype (Semigroup, Monoid)
-
-data State a r = State
-    { input :: Input
-    , good  :: a -> Input -> Hints -> Either String r
-    , bad   :: Error -> Input -> Either String r
-    }
-
-newtype Parser a = Parser (forall r. State a r -> Either String r)
-
-parse :: Parser a -> String -> Either String a
-parse (Parser p) input = p $ State
-    { input = Input {str = input, _pos = Pos{ _line = 1, _col = 1 }}
-    , good = \x _ _ -> Right x
-    , bad = \e _ -> Left (format input e)
-    }
-
-instance Functor Parser where
-    fmap :: (a -> b) -> Parser a -> Parser b
-    fmap f (Parser p) = Parser $ \st@State{..} -> p (st {
-        good = good . f
-    })
-
-instance Applicative Parser where
-    pure :: a -> Parser a
-    pure x = Parser $ \State{..} -> good x input mempty
-
-    liftA2 :: (a -> b -> c) -> Parser a -> Parser b -> Parser c
-    liftA2 f (Parser p) (Parser q) = Parser $ \st@State{..} ->
-     let doQ x input hs = q (State {
-         good = \y input' hs' -> good (f x y) input' (combineHints hs hs' (_pos input) (_pos input')),
-         bad = \err input' -> bad (withHints err hs (_pos input) (_pos input')) input',
-         input = input
-       })
-     in p (st {good = doQ})
-
-
-instance Selective Parser where
-    select :: Parser (Either a b) -> Parser (a -> b) -> Parser b
-    select (Parser p) (Parser q) = Parser $ \st@State{..} ->
-        let handle (Left x) = \input hs -> q (State {
-            good = \f input' hs' -> good (f x) input' (combineHints hs hs' (_pos input) (_pos input')),
-            bad = \err input' -> bad (withHints err hs (_pos input) (_pos input')) input',
-            input = input
-          })
-            handle (Right x) = good x
-        in p (st {good = handle})
-
-
-instance Alternative Parser where
-    empty :: Parser a
-    empty = Parser $ \State{..} ->
-        bad (Oops {
-            expected = mempty,
-            unexpect = Nothing,
-            msgs = [],
-            errPos = _pos input
-        }) input
-
-    (<|>) :: Parser a -> Parser a -> Parser a
-    Parser p <|> Parser q = Parser $ \st@State{..} ->
-        let doQ err input'
-                | _pos input < _pos input' = bad err input'
-                | _pos input == _pos input' = q (st {
-                    good = \x input' hs ->
-                        if _pos input == _pos input' then good x input' (toHints err (_pos input') <> hs)
-                        else good x input' hs,
-                    bad = \err' -> bad (err <> err')
-                })
-        in p (st {bad = doQ})
-
-satisfy :: (Char -> Bool) -> Parser Char
-satisfy f = Parser $ \State{..} -> case str input of
-  c:cs | f c -> let p@Pos{..} = _pos input in case c of
-      '\n' -> good '\n' (input {str = cs, _pos = p {_col = 1, _line = _line + 1}}) mempty
-      c    -> good c (input {str = cs, _pos = p {_col = _col + 1}}) mempty
-  cs -> bad (Oops {
-      expected = Set.empty,
-      unexpect = Just (foldr (const . Raw . pure) EndOfInput cs),
-      msgs = [],
-      errPos = _pos input
-  }) input
-
-try :: Parser a -> Parser a
-try (Parser p) = Parser $ \st@State{..} -> p (st {bad = \err _ -> bad err input})
-
-lookAhead :: Parser a -> Parser a
-lookAhead (Parser p) = Parser $ \st@State{..} -> p (st {good = \x _ _ -> good x input mempty})
-
-notFollowedBy :: Parser a -> Parser ()
-notFollowedBy (Parser p) = Parser $ \st@State{..} ->
-    let oldPos = _pos input
-        item newPos = take (_col newPos - _col oldPos) $ head (lines (str input))
-        err input' = Oops {
-            expected = Set.empty,
-            unexpect = Just $ if null (str input) then EndOfInput else Raw (item (_pos input')),
-            msgs = [],
-            errPos = oldPos
-        }
-    in p (st {
-        good = \_ input' _ -> bad (err input') input,
-        bad = \_ _ -> good () input mempty
-    })
-
-unexpected :: String -> Parser a
-unexpected msg = Parser $ \State{bad, input} -> bad (Oops {
-    expected = Set.empty,
-    unexpect = Just (Named msg),
-    msgs = [],
-    errPos = _pos input
-}) input
-
-fail :: String -> Parser a
-fail msg = Parser $ \State{bad, input} -> bad (Oops {
-    expected = Set.empty,
-    unexpect = Nothing,
-    msgs = [msg],
-    errPos = _pos input
-}) input
-
-line :: Parser Int
-line = Parser $ \State{good, input} -> good (_line (_pos input)) input mempty
-
-col :: Parser Int
-col = Parser $ \State{good, input} -> good (_col (_pos input)) input mempty
-
-infix 0 <?>
-(<?>) :: Parser a -> String -> Parser a
-Parser p <?> label = Parser $ \st@State{..} ->
-    let label'
-            | null label = Nothing
-            | otherwise = Just (Named label)
-        hintFix x input' hs
-            | _pos input < _pos input', Nothing <- label' = good x input' (refreshLastHints hs Nothing)
-            | _pos input < _pos input' = good x input' hs
-            | _pos input == _pos input' = good x input (refreshLastHints hs label')
-        labelApply err input' = flip bad input' $
-            if _pos input == _pos input' then err { expected = maybe Set.empty Set.singleton label' }
-            else err
-    in p (st {good = hintFix, bad = labelApply})
-
-combineHints :: Hints -> Hints -> Pos -> Pos -> Hints
-combineHints hs hs' pos pos'
-    | pos == pos' = hs <> hs'
-    | pos < pos' = hs'
-    | otherwise = error (show pos ++ " is not <= " ++ show pos')
-
-withHints :: Error -> Hints -> Pos -> Pos -> Error
-withHints err (Hints hs) pos pos'
-    | pos' == pos = err { expected = Set.unions (expected err : hs) }
-
--- Taken from megaparsec
-refreshLastHints :: Hints -> Maybe Item -> Hints
-refreshLastHints (Hints []) _              = Hints []
-refreshLastHints (Hints (_ : hs)) Nothing  = Hints hs
-refreshLastHints (Hints (_ : hs)) (Just h) = Hints (Set.singleton h : hs)
-
--- Taken from megaparsec
-toHints :: Error -> Pos -> Hints
-toHints Oops{..} pos
-    | errPos == pos = Hints [expected | not (Set.null expected)]
-    | otherwise = mempty
-
-------------------------------------------------------------------
--- COMBINATORS
-------------------------------------------------------------------
-
-infixr 4 <:>
-(<:>) :: Applicative f => f a -> f [a] -> f [a]
-(<:>) = liftA2 (:)
-
-infixl 4 <~>
-(<~>) :: Applicative f => f a -> f b -> f (a, b)
-(<~>) = liftA2 (,)
-
-choice :: Alternative f => [f a] -> f a
-choice = asum
-
-infixl 4 >?>
-(>?>) :: (Selective f, Alternative f) => f a -> (a -> Bool) -> f a
-fx >?> p = select ((\x -> if p x then Right x else Left ()) <$> fx) empty
-
-filteredBy :: (Selective f, Alternative f) => f a -> (a -> Bool) -> f a
-filteredBy = (>?>)
-
-char :: Char -> Parser Char
-char c = satisfy (== c) <?> show [c]
-
-string :: String -> Parser String
-string str = traverse char str <?> show str
-
-item :: Parser Char
-item = satisfy (const True) <?> "any character"
-
-oneOf :: [Char] -> Parser Char
-oneOf = choice . map char
-
-noneOf :: [Char] -> Parser Char
-noneOf = satisfy . (not .) . flip elem
-
-eof :: Parser ()
-eof = notFollowedBy item <?> "end of file"
-
-pos :: Parser (Int, Int)
-pos = line <~> col
-
-infixl1 :: (a -> b) -> Parser a -> Parser (b -> a -> b) -> Parser b
-infixl1 wrap p op = postfix wrap p (flip <$> op <*> p)
-
-infixr1 :: (a -> b) -> Parser a -> Parser (a -> b -> b) -> Parser b
-infixr1 wrap p op = p <**> (flip <$> op <*> infixr1 wrap p op <|> pure wrap)
-
-prefix :: (a -> b) -> Parser (b -> b) -> Parser a -> Parser b
-prefix wrap op p = op <*> prefix wrap op p <|> wrap <$> p
-
-postfix :: (a -> b) -> Parser a -> Parser (b -> b) -> Parser b
-postfix wrap p op = (wrap <$> p) <**> rest
-    where
-        rest = flip (.) <$> op <*> rest
-            <|> pure id
-
-chainl1 :: Parser a -> Parser (a -> a -> a) -> Parser a
-chainl1 = infixl1 id
-
-chainr1 :: Parser a -> Parser (a -> a -> a) -> Parser a
-chainr1 = infixr1 id
-
-many1 :: Parser a -> Parser [a]
+many1 :: Parser t a -> Parser t [a]
 many1 p = (:) <$> p <*> many p
 
-alpha :: Parser Char
-alpha = satisfy isAlpha <?> "alpha"
-
-digit :: Parser Char
-digit = satisfy isDigit <?> "digit"
-
-spaces :: Parser ()
-spaces = void $ many (satisfy isSpace <?> "whitespace")
-
-decimal :: (Integral a, Read a) => Parser a
-decimal = read <$> many1 digit
-
-signedDecimal :: Parser Int
-signedDecimal = fmap (fromMaybe id) (optional (char '-' $> negate)) <*> decimal
-
-sepBy :: Parser a -> Parser b -> Parser [a]
+sepBy :: Parser t a -> Parser t b -> Parser t [a]
 sepBy p s = sepBy1 p s <|> pure []
 
-sepBy1 :: Parser a -> Parser b -> Parser [a]
+sepBy1 :: Parser t a -> Parser t b -> Parser t [a]
 sepBy1 p s = (:) <$> p <*> many (s *> p)
 
-hRunParser :: IO.Handle -> Parser a -> IO a
-hRunParser h p = IO.hGetContents h >>= either Prelude.fail pure . parse p
+-- | Parse a left-associative chain of terms and operators.
+chainl1 :: Parser t a -> Parser t (a -> a -> a) -> Parser t a
+chainl1 t op = foldl' (\x (f, y) -> f x y) <$> t <*> many ((,) <$> op <*> t)
+
+alpha :: Parser Char Char
+alpha = satisfy "alpha" isAlpha
+
+digit :: Parser Char Char
+digit = satisfy "digit" isDigit
+
+spaces :: Parser Char ()
+spaces = void $ many $ satisfy "whitespace" isSpace
+
+decimal :: (Integral a, Read a) => Parser Char a
+decimal = read <$> many1 digit
+
+signedDecimal :: Parser Char Int
+signedDecimal = fmap (fromMaybe id) (optional (char '-' $> negate)) <*> decimal
+
+runParser :: Parser t a -> [t] -> Either String a
+runParser (Parser g) ts = case g 0 ts of
+    ParseSuccess x _ _ -> Right x
+    ParseError errs    -> Left $ "Expecting " ++ intercalate " OR "
+        [ err ++ " at position " ++ show i
+        | (i, err) <- errs
+        ]
+
+hRunParser :: IO.Handle -> Parser Char a -> IO a
+hRunParser h p = IO.hGetContents h >>= either fail pure . runParser p

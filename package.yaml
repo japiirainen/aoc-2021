@@ -19,6 +19,7 @@ dependencies:
   - text
   - directory
   - selective
+  - vector
 
 library:
   source-dirs: src

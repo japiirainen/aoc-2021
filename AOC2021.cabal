@@ -33,6 +33,7 @@ library
       AOC.Testi
       Days.Day1
       Days.Day2
+      Days.Day3
       Paths_AOC2021
   hs-source-dirs:
       src
@@ -46,6 +47,7 @@ library
     , pretty
     , selective
     , text
+    , vector
   default-language: Haskell2010
 
 executable AOC2021
@@ -65,4 +67,5 @@ executable AOC2021
     , pretty
     , selective
     , text
+    , vector
   default-language: Haskell2010

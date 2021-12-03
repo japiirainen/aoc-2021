@@ -41,7 +41,7 @@ instance Functor (Parser t) where
     fmap f (Parser g) = Parser (\i ts -> fmap f (g i ts))
 
 instance Applicative (Parser t) where
-    pure x                = Parser (\i ts -> ParseSuccess x i ts)
+    pure x                = Parser (ParseSuccess x)
     Parser f <*> Parser g = Parser (\i ts ->
         case f i ts of
             ParseError errs        -> ParseError errs
@@ -53,10 +53,10 @@ instance Alternative (Parser t) where
     empty                 = Parser (\_ _ -> ParseError [])
     Parser f <|> Parser g = Parser (\i ts ->
         case f i ts of
-            success@(ParseSuccess _ _ _) -> success
+            success@ParseSuccess {} -> success
             ParseError errs1             -> case g i ts of
-                success@(ParseSuccess _ _ _) -> success
-                ParseError errs2             -> ParseError (errs1 ++ errs2))
+                success@ParseSuccess {} -> success
+                ParseError errs2        -> ParseError (errs1 ++ errs2))
 
 satisfy :: String -> (t -> Bool) -> Parser t t
 satisfy descr p = Parser (\i ts -> case ts of
@@ -70,8 +70,7 @@ char :: (Eq t, Show t) => t -> Parser t ()
 char c = void $ satisfy (show c) (== c)
 
 string :: (Eq t, Show t) => [t] -> Parser t ()
-string []       = pure ()
-string (x : xs) = char x *> string xs
+string = foldr ((*>) . char) (pure ())
 
 many1 :: Parser t a -> Parser t [a]
 many1 p = (:) <$> p <*> many p

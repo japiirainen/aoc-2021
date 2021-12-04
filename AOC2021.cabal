@@ -28,12 +28,16 @@ library
       AOC.Parsija
   other-modules:
       AOC.Dijkstra
+      AOC.Grid
       AOC.Main
       AOC.PQ
       AOC.Testi
+      AOC.V2
+      AOC.V2.Box
       Days.Day1
       Days.Day2
       Days.Day3
+      Days.Day4
       Paths_AOC2021
   hs-source-dirs:
       src

@@ -17,6 +17,8 @@ module AOC.Parsija
     , spaces
     , decimal
     , signedDecimal
+    , horizontalSpaces
+    , newline
 
     , runParser
     , hRunParser
@@ -93,6 +95,13 @@ digit = satisfy "digit" isDigit
 
 spaces :: Parser Char ()
 spaces = void $ many $ satisfy "whitespace" isSpace
+
+horizontalSpaces :: Parser Char ()
+horizontalSpaces = void . many $ satisfy "horizontal whitespace" $ \c ->
+    isSpace c && c /= '\n' && c /= '\r'
+
+newline :: Parser Char ()
+newline = char '\n' <|> (char '\r' *> char '\n')
 
 decimal :: (Integral a, Read a) => Parser Char a
 decimal = read <$> many1 digit

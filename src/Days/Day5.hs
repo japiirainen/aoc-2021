@@ -16,10 +16,6 @@ parseInput = P.many1 $ (,) <$> (parseCoordinates <* parseArrow) <*> parseCoordin
     parseCoordinates = (,) <$> P.decimal <* P.char ',' <*> P.decimal
     parseArrow = P.spaces *> P.string "->" <* P.spaces
 
-
-toHisto :: Ord a => [a] -> [(a, Int)]
-toHisto = L.map (\xs@(x:_) -> (x, L.length xs)) . L.group . L.sort
-
 ranges :: Line -> Maybe [Point]
 ranges ((x1, y1), (x2, y2))
     | dx == 0 = Just $ [(x1, y1 + signY * d) | d <- [0..dy]]
@@ -34,7 +30,7 @@ isStraight :: Line -> Bool
 isStraight ((x1, y1), (x2, y2)) = x1 == x2 || y1 == y2
 
 overlaps :: Ord a => [(a, Int)] -> Int
-overlaps = L.length . L.filter ((>= 2) . snd) . toHisto
+overlaps = L.length . L.filter ((> 1) . L.length) . L.group . L.sort
 
 main :: IO ()
 main = do

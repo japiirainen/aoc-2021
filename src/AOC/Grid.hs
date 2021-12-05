@@ -45,6 +45,9 @@ move n dir (V2 x y) = case dir of
 
 type Grid a = M.Map Pos a
 
+-- >>> fromList [[1,2], [1,2]]
+-- Just (Box {bTopLeft = V2 {vX = 0, vY = 0}, bBottomRight = V2 {vX = 1, vY = 1}})
+
 fromList :: [[a]] -> Grid a
 fromList = L.foldl'
     (\acc (y, row) -> L.foldl'

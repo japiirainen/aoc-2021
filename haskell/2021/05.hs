@@ -1,44 +1,35 @@
 module Main where
 
-import           Control.Applicative ((<|>))
-import           Control.Arrow       ((&&&))
-
 import qualified AOC.Parsija         as P
-import qualified Data.List           as L
-import qualified Data.Maybe          as M
+import           AOC.V2              (V2 (..))
+import           Control.Applicative (many)
+import qualified Data.Map            as M
 
-type Point = (Int, Int)
-type Line = (Point, Point)
+data LN = LN (V2 Int) (V2 Int)
 
-parseInput :: P.Parser Char [Line]
-parseInput = P.many1 $ (,) <$> (parseCoordinates <* parseArrow) <*> parseCoordinates <* (P.newline <|> P.spaces)
-  where
-    parseCoordinates = (,) <$> P.decimal <* P.char ',' <*> P.decimal
-    parseArrow = P.spaces *> P.string "->" <* P.spaces
+parseInput :: P.Parser Char [LN]
+parseInput = many $ LN <$> (v2 <* P.string "->" <* P.spaces) <*> v2
+  where v2 = V2 <$> (P.decimal <* P.char ',') <*> (P.decimal <* P.spaces)
 
-ranges :: Line -> Maybe [Point]
-ranges ((x1, y1), (x2, y2))
-    | dx == 0 = Just $ [(x1, y1 + signY * d) | d <- [0..dy]]
-    | dy == 0 = Just $ [(x1 + signX * d, y1) | d <- [0..dx]]
-    | dx == dy = Just $ [(x1 + signX * d, y1 + signY * d) | d <- [0..dx]]
-    | otherwise = Nothing
-  where
-      (dx, signX) = (abs &&& signum) (x2 - x1)
-      (dy, signY) = (abs &&& signum) (y2 - y1)
+points :: LN -> [V2 Int]
+points (LN (V2 x0 y0) (V2 x1 y1))
+    | x0 == x1  = [V2 x0 y | y <- range y0 y1]
+    | y0 == y1  = [V2 x y0 | x <- range x0 x1]
+    | otherwise = zipWith V2 (range x0 x1) (range y0 y1)
+  where range n k = if n <= k then [n .. k] else [n, n - 1 .. k]
 
-isStraight :: Line -> Bool
-isStraight ((x1, y1), (x2, y2)) = x1 == x2 || y1 == y2
+isStraight :: LN -> Bool
+isStraight (LN (V2 x1 y1) (V2 x2 y2)) = x1 == x2 || y1 == y2
 
-overlaps :: Ord a => [(a, Int)] -> Int
-overlaps = L.length . L.filter ((> 1) . L.length) . L.group . L.sort
+overlaps :: [LN] -> Int
+overlaps ls = M.size . M.filter (>= 2) $
+    M.fromListWith (+) [(p, 1 :: Int) | l <- ls, p <- points l]
 
 main :: IO ()
 main = do
     inputStr <- readFile "2021/05.txt"
     case P.runParser parseInput inputStr of
-        Left err -> putStrLn err
+        Left err -> print err
         Right input -> do
-            let part1 = overlaps . L.concat . M.mapMaybe ranges . L.filter isStraight
-                part2 = overlaps . L.concat . M.mapMaybe ranges
-            print $ "Part 1: " ++ show (part1 input)
-            print $ "Part 2: " ++ show (part2 input)
+            print $ "Part 1: " ++ show (overlaps $ filter isStraight input)
+            print $ "Part 2: " ++ show (overlaps input)

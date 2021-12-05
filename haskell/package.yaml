@@ -1,4 +1,4 @@
-name: AOC2021
+name: AOC
 version: 0.0.1
 synopsis: Advent of code solutions for 2021
 description: See README at <https://github.com/japiirainen/aoc-2021#readme>
@@ -22,15 +22,33 @@ dependencies:
   - vector
 
 library:
-  source-dirs: src
+  source-dirs: 
+    - lib
   exposed-modules:
-    - AOC2021
     - AOC.List.Transformer
     - AOC.List.Extended
     - AOC.Parsija
+    - AOC.V2
+    - AOC.Grid
 
-executable:
-  main: Main.hs
-  source-dirs: app
-  dependencies:
-    - AOC2021
+executables:
+  2021-01:
+    source-dirs: "2021"
+    main: 01.hs
+    dependencies: AOC
+  2021-02:
+    source-dirs: "2021"
+    main: 02.hs
+    dependencies: AOC
+  2021-03:
+    source-dirs: "2021"
+    main: 03.hs
+    dependencies: AOC
+  2021-04:
+    source-dirs: "2021"
+    main: 04.hs
+    dependencies: AOC
+  2021-05:
+    source-dirs: "2021"
+    main: 05.hs
+    dependencies: AOC

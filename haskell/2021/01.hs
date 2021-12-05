@@ -1,4 +1,4 @@
-module Days.Day1 where
+module Main where
 
 import           Data.Foldable (foldl')
 
@@ -10,7 +10,7 @@ part2 = countIncreasing . map sum . sliding 3
 
 main :: IO ()
 main = do
-    numbers <- map read . lines <$> readFile "inputs/day1.txt" :: IO [Int]
+    numbers <- map read . lines <$> readFile "2021/01.txt" :: IO [Int]
     let r1 = countIncreasing numbers
         r2 = part2 numbers
     print $ "Part 1 result: " <> show r1

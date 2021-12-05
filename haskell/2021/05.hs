@@ -1,4 +1,4 @@
-module Days.Day5 where
+module Main where
 
 import           Control.Applicative ((<|>))
 import           Control.Arrow       ((&&&))
@@ -34,7 +34,7 @@ overlaps = L.length . L.filter ((> 1) . L.length) . L.group . L.sort
 
 main :: IO ()
 main = do
-    inputStr <- readFile "inputs/day5.txt"
+    inputStr <- readFile "2021/05.txt"
     case P.runParser parseInput inputStr of
         Left err -> putStrLn err
         Right input -> do

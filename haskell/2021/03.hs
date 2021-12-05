@@ -1,4 +1,4 @@
-module Days.Day3 where
+module Main where
 
 import           Control.Applicative
 import           Data.Maybe          (fromMaybe)
@@ -49,7 +49,7 @@ lifeSupportRating binary = oxygenRating * co2Rating
 
 main :: IO ()
 main = do
-    fc <- readFile "inputs/day3.txt"
+    fc <- readFile "2021/03.txt"
     case P.runParser parseBinaries fc of
         Left parseError -> print parseError
         Right binary    -> do

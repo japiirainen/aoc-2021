@@ -1,5 +1,5 @@
 {-# LANGUAGE LambdaCase #-}
-module Days.Day2 where
+module Main where
 
 import           Control.Applicative
 import           Data.Foldable       (foldl')
@@ -32,7 +32,7 @@ part2 cs = let (hor, dep, _) = foldl' step (0, 0, 0) cs in hor * dep
                 Up n      -> (hor, dep, aim - n)
 
 main :: IO ()
-main = readFile "inputs/day2.txt" >>= \input -> do
+main = readFile "2021/02.txt" >>= \input -> do
     case P.runParser parseCommands input of
         Left e -> print e
         Right commands -> do

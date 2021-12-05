@@ -1,0 +1,150 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.34.5.
+--
+-- see: https://github.com/sol/hpack
+
+name:           AOC
+version:        0.0.1
+synopsis:       Advent of code solutions for 2021
+description:    See README at <https://github.com/japiirainen/aoc-2021#readme>
+category:       Development
+homepage:       https://github.com/japiirainen/aoc-2021#readme
+bug-reports:    https://github.com/japiirainen/aoc-2021/issues
+maintainer:     Joona Piirainen <joona.piirainen@gmail.com>
+build-type:     Simple
+extra-source-files:
+    CHANGELOG.md
+
+source-repository head
+  type: git
+  location: https://github.com/japiirainen/aoc-2021
+
+library
+  exposed-modules:
+      AOC.List.Transformer
+      AOC.List.Extended
+      AOC.Parsija
+      AOC.V2
+      AOC.Grid
+  other-modules:
+      AOC.Dijkstra
+      AOC.Main
+      AOC.PQ
+      AOC.Testi
+      AOC.V2.Box
+      Paths_AOC
+  hs-source-dirs:
+      lib
+  ghc-options: -Wall
+  build-depends:
+      base
+    , containers
+    , directory
+    , megaparsec
+    , mtl
+    , pretty
+    , selective
+    , text
+    , vector
+  default-language: Haskell2010
+
+executable 2021-01
+  main-is: 01.hs
+  other-modules:
+      Paths_AOC
+  hs-source-dirs:
+      2021
+  ghc-options: -Wall
+  build-depends:
+      AOC
+    , base
+    , containers
+    , directory
+    , megaparsec
+    , mtl
+    , pretty
+    , selective
+    , text
+    , vector
+  default-language: Haskell2010
+
+executable 2021-02
+  main-is: 02.hs
+  other-modules:
+      Paths_AOC
+  hs-source-dirs:
+      2021
+  ghc-options: -Wall
+  build-depends:
+      AOC
+    , base
+    , containers
+    , directory
+    , megaparsec
+    , mtl
+    , pretty
+    , selective
+    , text
+    , vector
+  default-language: Haskell2010
+
+executable 2021-03
+  main-is: 03.hs
+  other-modules:
+      Paths_AOC
+  hs-source-dirs:
+      2021
+  ghc-options: -Wall
+  build-depends:
+      AOC
+    , base
+    , containers
+    , directory
+    , megaparsec
+    , mtl
+    , pretty
+    , selective
+    , text
+    , vector
+  default-language: Haskell2010
+
+executable 2021-04
+  main-is: 04.hs
+  other-modules:
+      Paths_AOC
+  hs-source-dirs:
+      2021
+  ghc-options: -Wall
+  build-depends:
+      AOC
+    , base
+    , containers
+    , directory
+    , megaparsec
+    , mtl
+    , pretty
+    , selective
+    , text
+    , vector
+  default-language: Haskell2010
+
+executable 2021-05
+  main-is: 05.hs
+  other-modules:
+      Paths_AOC
+  hs-source-dirs:
+      2021
+  ghc-options: -Wall
+  build-depends:
+      AOC
+    , base
+    , containers
+    , directory
+    , megaparsec
+    , mtl
+    , pretty
+    , selective
+    , text
+    , vector
+  default-language: Haskell2010

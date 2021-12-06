@@ -12,16 +12,16 @@ newtype Fish = MkFish Int
     deriving stock (Show, Eq, Ord)
     deriving (Monoid, Semigroup) via Sum Int
 
-step :: Fish -> [Fish]
-step (MkFish 0) = [MkFish 6, MkFish 8]
-step (MkFish n) = [MkFish $ n - 1]
-
 newtype Population = Pop { unPop :: M.Map Fish Int } deriving (Show)
 instance Semigroup Population where Pop l <> Pop r = Pop $ M.unionWith (+) l r
 instance Monoid Population where mempty = Pop mempty
 
-size :: Population -> Int
-size = getSum . foldMap Sum . unPop
+step :: Fish -> [Fish]
+step (MkFish 0) = [MkFish 6, MkFish 8]
+step (MkFish n) = [MkFish $ n - 1]
+
+popSize :: Population -> Int
+popSize = getSum . foldMap Sum . unPop
 
 singleton :: Fish -> Population
 singleton fish = Pop $ M.singleton fish 1
@@ -40,7 +40,7 @@ main = do
         Left err -> print err
         Right xs -> do
             print $ "Part 1: " <> show (length $ iterate (concatMap step) xs !! 80)
-            print $ "Part 2: " <> show (size $ iterate stepPopulation (foldMap singleton xs) !! 256)
+            print $ "Part 2: " <> show (popSize $ iterate stepPopulation (foldMap singleton xs) !! 256)
 
 parseFish :: P.Parser Char [Fish]
 parseFish = many $ MkFish <$> P.decimal <* (P.char ',' <|> P.spaces)

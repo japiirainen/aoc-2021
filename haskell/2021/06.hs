@@ -1,25 +1,46 @@
-{-# OPTIONS_GHC -Wno-incomplete-patterns #-}
+{-# LANGUAGE DerivingStrategies         #-}
+{-# LANGUAGE DerivingVia                #-}
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
 module Main where
 
-import qualified AOC.Parsija as P
-import           Data.List
+import qualified AOC.Parsija         as P
+import           Control.Applicative (many, (<|>))
+import qualified Data.Map            as M
+import           Data.Monoid         (Sum (..))
 
+newtype Fish = MkFish Int
+    deriving stock (Show, Eq, Ord)
+    deriving (Monoid, Semigroup) via Sum Int
 
-initC :: [Int] -> [Int]
-initC = map (pred . length) . group . sort . (++ [0 .. 8])
+step :: Fish -> [Fish]
+step (MkFish 0) = [MkFish 6, MkFish 8]
+step (MkFish n) = [MkFish $ n - 1]
 
-step :: [Int] -> [Int]
-step (zeros:xs) = prefix <> [sevens + zeros] <> [eights, zeros]
-    where (prefix, [sevens, eights]) = splitAt 6 xs
+newtype Population = Pop { unPop :: M.Map Fish Int } deriving (Show)
+instance Semigroup Population where Pop l <> Pop r = Pop $ M.unionWith (+) l r
+instance Monoid Population where mempty = Pop mempty
 
-solve :: Int -> [Int] -> Int
-solve n = sum . (!! n) . iterate step . initC
+size :: Population -> Int
+size = getSum . foldMap Sum . unPop
+
+singleton :: Fish -> Population
+singleton fish = Pop $ M.singleton fish 1
+
+times :: Int -> Population -> Population
+times n (Pop pop) = Pop ((* n) <$> pop)
+
+stepPopulation :: Population -> Population
+stepPopulation = M.foldMapWithKey
+    (\fish freq -> times freq . foldMap singleton $ step fish) . unPop
 
 main :: IO ()
 main = do
-    ip <- readFile "2021/06.txt"
-    case P.runParser (P.sepBy1 P.decimal (P.char ',') <* P.spaces) ip of
+    ip <- readFile "2021/06-sample.txt"
+    case P.runParser parseFish ip of
         Left err -> print err
         Right xs -> do
-            print $ "Part 1: " <> show (solve 80 xs)
-            print $ "Part 2: " <> show (solve 256 xs)
+            print $ "Part 1: " <> show (length $ iterate (concatMap step) xs !! 80)
+            print $ "Part 2: " <> show (size $ iterate stepPopulation (foldMap singleton xs) !! 256)
+
+parseFish :: P.Parser Char [Fish]
+parseFish = many $ MkFish <$> P.decimal <* (P.char ',' <|> P.spaces)

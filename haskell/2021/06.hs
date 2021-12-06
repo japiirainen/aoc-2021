@@ -1,6 +1,4 @@
-{-# LANGUAGE DerivingStrategies         #-}
-{-# LANGUAGE DerivingVia                #-}
-{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE DerivingVia #-}
 module Main where
 
 import qualified AOC.Parsija         as P
@@ -10,7 +8,6 @@ import           Data.Monoid         (Sum (..))
 
 newtype Fish = MkFish Int
     deriving stock (Show, Eq, Ord)
-    deriving (Monoid, Semigroup) via Sum Int
 
 newtype Population = Pop { unPop :: M.Map Fish Int } deriving (Show)
 instance Semigroup Population where Pop l <> Pop r = Pop $ M.unionWith (+) l r
@@ -35,8 +32,8 @@ stepPopulation = M.foldMapWithKey
 
 main :: IO ()
 main = do
-    ip <- readFile "2021/06-sample.txt"
-    case P.runParser parseFish ip of
+    fish <- readFile "2021/06.txt"
+    case P.runParser parseFish fish of
         Left err -> print err
         Right xs -> do
             print $ "Part 1: " <> show (length $ iterate (concatMap step) xs !! 80)

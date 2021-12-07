@@ -30,6 +30,7 @@ library:
     - AOC.Parsija
     - AOC.V2
     - AOC.Grid
+    - AOC.Main
 
 executables:
   2021-01:

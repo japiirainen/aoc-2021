@@ -1,5 +1,6 @@
 module Main where
 
+import           AOC.Main            (pureMain)
 import qualified AOC.Parsija         as P
 import           AOC.V2              (V2 (..))
 import           Control.Applicative (many)
@@ -26,10 +27,6 @@ overlaps ls = M.size . M.filter (>= 2) $
     M.fromListWith (+) [(p, 1 :: Int) | l <- ls, p <- points l]
 
 main :: IO ()
-main = do
-    inputStr <- readFile "2021/05.txt"
-    case P.runParser parseInput inputStr of
-        Left err -> print err
-        Right input -> do
-            print $ "Part 1: " ++ show (overlaps $ filter isStraight input)
-            print $ "Part 2: " ++ show (overlaps input)
+main = pureMain $ \input -> do
+  ip <- P.runParser parseInput input
+  pure (pure (overlaps $ filter isStraight ip), pure (overlaps ip))

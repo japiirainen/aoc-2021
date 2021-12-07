@@ -1,5 +1,6 @@
 module Main where
 
+import           AOC.Main            (pureMain)
 import           Control.Applicative
 import           Data.Maybe          (fromMaybe)
 
@@ -48,11 +49,6 @@ lifeSupportRating binary = oxygenRating * co2Rating
             withCriteria (\mcb b -> b /= fromMaybe True mcb) binary
 
 main :: IO ()
-main = do
-    fc <- readFile "2021/03.txt"
-    case P.runParser parseBinaries fc of
-        Left parseError -> print parseError
-        Right binary    -> do
-            print $ "Part 1: " <> show (powerConsumption binary)
-            print $ "Part 2: " <> show (lifeSupportRating binary)
-
+main = pureMain $ \input -> do
+  binary <- P.runParser parseBinaries input
+  pure (pure (powerConsumption binary), pure (lifeSupportRating binary))

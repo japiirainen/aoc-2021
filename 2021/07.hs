@@ -1,8 +1,10 @@
 {-# LANGUAGE TypeApplications #-}
 module Main where
 
-import qualified AOC.Parsija   as P
+import           AOC.Main      (pureMain)
 import           Control.Arrow ((&&&))
+
+import qualified AOC.Parsija   as P
 
 solve :: (Int -> Int) -> [Int] -> Int
 solve trans ps = minimum $ (\p -> calculateCosts trans p ps) <$> [minB..maxB]
@@ -15,10 +17,6 @@ incWithDist :: Int -> Int
 incWithDist x = x * (x + 1) `div` 2
 
 main :: IO ()
-main = do
-    ip <- readFile "2021/07.txt"
-    case P.runParser (P.decimal @Int `P.sepBy1` P.char ',') ip of
-        Left err -> print err
-        Right xs -> do
-            print $ "Part 1: " <> show (solve id xs)
-            print $ "Part 2: " <> show (solve incWithDist xs)
+main = pureMain $ \input -> do
+  xs <- P.runParser (P.decimal `P.sepBy1` P.char ',') input
+  pure (pure (solve id xs), pure (solve incWithDist xs))

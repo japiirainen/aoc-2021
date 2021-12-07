@@ -1,6 +1,7 @@
 {-# LANGUAGE LambdaCase #-}
 module Main where
 
+import           AOC.Main            (pureMain)
 import           Control.Applicative
 import           Data.Foldable       (foldl')
 
@@ -32,9 +33,6 @@ part2 cs = let (hor, dep, _) = foldl' step (0, 0, 0) cs in hor * dep
                 Up n      -> (hor, dep, aim - n)
 
 main :: IO ()
-main = readFile "2021/02.txt" >>= \input -> do
-    case P.runParser parseCommands input of
-        Left e -> print e
-        Right commands -> do
-            print $ "Part 1: " <> show (part1 commands)
-            print $ "Part 2: " <> show (part2 commands)
+main = pureMain $ \input -> do
+  commands <- P.runParser parseCommands input
+  pure (pure (part1 commands), pure (part2 commands))

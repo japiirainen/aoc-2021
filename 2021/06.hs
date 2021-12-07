@@ -1,6 +1,7 @@
 {-# LANGUAGE DerivingVia #-}
 module Main where
 
+import           AOC.Main            (pureMain)
 import qualified AOC.Parsija         as P
 import           Control.Applicative (many, (<|>))
 import qualified Data.Map            as M
@@ -31,13 +32,11 @@ stepPopulation = M.foldMapWithKey
     (\fish freq -> times freq . foldMap singleton $ step fish) . unPop
 
 main :: IO ()
-main = do
-    fish <- readFile "2021/06.txt"
-    case P.runParser parseFish fish of
-        Left err -> print err
-        Right xs -> do
-            print $ "Part 1: " <> show (length $ iterate (concatMap step) xs !! 80)
-            print $ "Part 2: " <> show (popSize $ iterate stepPopulation (foldMap singleton xs) !! 256)
+main = pureMain $ \input -> do
+  xs <- P.runParser parseFish input
+  let r1 = length $ iterate (concatMap step) xs !! 80
+      r2 = popSize $ iterate stepPopulation (foldMap singleton xs)!! 256
+  pure (pure r1, pure r2)
 
 parseFish :: P.Parser Char [Fish]
 parseFish = many $ MkFish <$> P.decimal <* (P.char ',' <|> P.spaces)

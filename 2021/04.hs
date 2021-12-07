@@ -1,5 +1,6 @@
 module Main where
 
+import           AOC.Main    (pureMain)
 import           AOC.V2      (V2 (..))
 import           Data.List   (partition)
 
@@ -38,11 +39,7 @@ play = go S.empty
               (winners, boards') = partition (wins drawn') boards
 
 main :: IO ()
-main = do
-    inputStr <- readFile "2021/04.txt"
-    case P.runParser parseInput inputStr of
-        Left err -> print err
-        Right (ns, boards) -> do
-            let winners = play ns boards
-            print $ "Part 1: " ++ show (head winners)
-            print $ "Part 2: " ++ show (last winners)
+main = pureMain $ \input -> do
+  (ns, boards) <- P.runParser parseInput input
+  let winners = play ns boards
+  pure (pure (head winners), pure (last winners))

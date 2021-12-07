@@ -4,11 +4,9 @@ module Main where
 import qualified AOC.Parsija   as P
 import           Control.Arrow ((&&&))
 
-minMax :: [Int] -> (Int, Int)
-minMax = minimum &&& maximum
-
 solve :: (Int -> Int) -> [Int] -> Int
-solve trans ps = minimum [calculateCosts trans pos ps | let (minB, maxB) = minMax ps, pos <- [minB..maxB]]
+solve trans ps = minimum $ (\p -> calculateCosts trans p ps) <$> [minB..maxB]
+    where (minB, maxB) = (minimum &&& maximum) ps
 
 calculateCosts :: (Int -> Int) -> Int -> [Int] -> Int
 calculateCosts trans pos = sum . map (trans . abs . (pos -))
@@ -22,7 +20,5 @@ main = do
     case P.runParser (P.decimal @Int `P.sepBy1` P.char ',') ip of
         Left err -> print err
         Right xs -> do
-            let sol1 = solve id xs
-                sol2 = solve incWithDist xs
-            print $ "Part 1: " <> show sol1
-            print $ "Part 2: " <> show sol2
+            print $ "Part 1: " <> show (solve id xs)
+            print $ "Part 2: " <> show (solve incWithDist xs)

@@ -28,6 +28,7 @@ library
       AOC.V2
       AOC.Grid
       AOC.Main
+      AOC.Foldable
   other-modules:
       AOC.Dijkstra
       AOC.PQ
@@ -191,6 +192,26 @@ executable 2021-07
 
 executable 2021-08
   main-is: 08.hs
+  other-modules:
+      Paths_AOC
+  hs-source-dirs:
+      2021
+  ghc-options: -Wall
+  build-depends:
+      AOC
+    , base
+    , containers
+    , directory
+    , megaparsec
+    , mtl
+    , pretty
+    , selective
+    , text
+    , vector
+  default-language: Haskell2010
+
+executable 2021-09
+  main-is: 09.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:

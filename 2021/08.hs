@@ -1,67 +1,102 @@
 module Main where
 
+import           AOC.Foldable        (minimaBy)
 import           AOC.Main            (pureMain)
-import           Control.Applicative
-import           Data.List
-import           Data.Map            (Map)
+import           Control.Applicative (many)
+import           Control.Monad       (forM, guard)
+import           Data.Char           (toUpper)
+import           Data.Foldable       (foldl')
+import           Data.Ord            (comparing)
+import           Text.Read           (readMaybe)
 
 import qualified AOC.Parsija         as P
-import qualified Data.Map            as Map
+import qualified Data.Map            as M
+import qualified Data.Set            as S
 
-type SigPat = [String]
-type Output = [String]
+data Segment = A | B | C | D | E | F | G
+  deriving (Bounded, Enum, Eq, Ord, Show, Read)
 
-parseInput :: P.Parser Char [(SigPat, Output)]
-parseInput = many $ (,) <$> (sepBySpace <* P.char '|' <* P.spaces) <*> sepBySpace
-  where sepBySpace = P.many1 P.alpha `P.sepBy1` P.char ' ' <* P.spaces
+parseSegment :: P.Parser Char Segment
+parseSegment = P.satisfyMaybe "abcdefg" (\c -> readMaybe [toUpper c])
 
+type Pattern = S.Set Segment
 
-findMapping :: SigPat -> Map Char Char
-findMapping xs = Map.fromList [(a, 'a'), (b, 'b'), (c, 'c'), (d, 'd'), (e, 'e'), (f, 'f'), (g, 'g')]
+parsePattern :: P.Parser Char Pattern
+parsePattern = S.fromList <$> P.many1 parseSegment
+
+display :: [(Pattern, Int)]
+display =
+  [ (S.fromList [A, B, C, E, F, G],    0)
+  , (S.fromList [C, F],                1)
+  , (S.fromList [A, C, D, E, G],       2)
+  , (S.fromList [A, C, D, F, G],       3)
+  , (S.fromList [B, C, D, F],          4)
+  , (S.fromList [A, B, D, F, G],       5)
+  , (S.fromList [A, B, D, E, F, G],    6)
+  , (S.fromList [A, C, F],             7)
+  , (S.fromList [A, B, C, D, E, F, G], 8)
+  , (S.fromList [A, B, C, D, F, G],    9)
+  ]
+
+data Input = Input [Pattern] [Pattern]
+  deriving (Show)
+
+parseInputs :: P.Parser Char [Input]
+parseInputs = many $ Input
+    <$> (P.many1 (tok parsePattern) <* tok (P.char '|'))
+    <*> (P.many1 (tok parsePattern) <* P.spaces)
   where
-    [one] = filter ((== 2) . length) xs
-    [four] = filter ((== 4) . length) xs
-    [seven] = filter ((== 3) . length) xs
-    zeroSixNine = filter ((== 6) . length) xs
-    twoThreeFive = filter ((== 5) . length) xs
-    (zeroNine, [six]) = partition ((== 2) . length . intersect one) zeroSixNine
-    ([nine], [zero]) = partition (elem d) zeroNine
-    ([five], twoThree) = partition (null . (\\ six)) twoThreeFive
-    ([two], [three]) = partition ((== 3) . length . intersect five) twoThree
-    (a:_) = seven \\ one
-    [b] = five \\ three
-    [c] = nine \\ six
-    [d] = foldl intersect four twoThreeFive
-    [e] = zero \\ nine
-    [f] = seven \\ two
-    [g] = (nine \\ four) \\ seven
+    tok p = p <* P.horizontalSpaces
 
-signalToNumber :: String -> Int
-signalToNumber "abcefg"  = 0
-signalToNumber "cf"      = 1
-signalToNumber "acdeg"   = 2
-signalToNumber "acdfg"   = 3
-signalToNumber "bcdf"    = 4
-signalToNumber "abdfg"   = 5
-signalToNumber "abdefg"  = 6
-signalToNumber "acf"     = 7
-signalToNumber "abcdefg" = 8
-signalToNumber "abcdfg"  = 9
-signalToNumber x         = error $ "Unknown signal: " ++ x
+type Mapping = M.Map Segment Segment
 
-decode :: Map Char Char -> String -> Int
-decode mapping = signalToNumber . sort . map (mapping Map.!)
+solve :: [Pattern] -> Either String Mapping
+solve patterns = case go M.empty of
+    [m] | all (`M.member` m) [minBound .. maxBound] -> Right m
+    [_]                                             -> Left "Incomplete"
+    []                                              -> Left "Unsolvable"
+    _                                               -> Left "Ambiguous"
+  where
+    go :: M.Map Segment Segment -> [M.Map Segment Segment]
+    go known = case minimaBy (comparing (length . snd)) branches of
+        []          -> pure known
+        (s, ts) : _ -> foldMap (\t -> go (M.insert t s known)) ts
+      where
+        branches = do
+            s <- [minBound .. maxBound]
+            guard $ s `notElem` known
+            pure (s, solveFor s)
 
-part1 :: [(SigPat, Output)] -> Int
-part1 = length . filter isUnique . concatMap snd
-  where isUnique x = length x `elem` [2, 3, 4, 7]
+        solveFor s = do
+            t <- [minBound .. maxBound]
+            guard . not $ t `M.member` known
+            guard $ countBySize (map fst display) s == countBySize patterns t
+            pure t
 
-solve :: (SigPat, Output) -> Int
-solve (sigPat, output) = let mapping = findMapping sigPat
-  in read $ concatMap (show . decode mapping) output
+    countBySize :: [Pattern] -> Segment -> M.Map Int Int
+    countBySize pats s =
+        M.fromListWith (+) [(S.size p, 1 :: Int) | p <- pats, s `S.member` p]
+
+decodeDigit :: Mapping -> Pattern -> Maybe Int
+decodeDigit m p = do
+  pat' <- fmap S.fromList . traverse (`M.lookup` m) $ S.toList p
+  lookup pat' display
+
+decodeDigits :: Mapping -> [Pattern] -> Maybe Int
+decodeDigits m ps = foldl' (\acc x -> acc * 10 + x) 0 <$> traverse (decodeDigit m) ps
 
 main :: IO ()
 main = pureMain $ \input -> do
-  ip <- P.runParser parseInput input
-  let p2 = sum . map solve
-  pure (pure (part1 ip), pure (p2 ip))
+  samples <- P.runParser parseInputs input
+
+  let part1 = length $ do
+        Input _ outs <- samples
+        out <- outs
+        guard $ length [p | (p, _) <- display, S.size p == S.size out] == 1
+        pure out
+
+      part2 = fmap sum . forM samples $ \(Input pats outs) -> do
+        mapping <- solve pats
+        maybe (Left "Decoding failed") Right $ decodeDigits mapping outs
+
+  pure (pure part1, part2)

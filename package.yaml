@@ -31,6 +31,7 @@ library:
     - AOC.V2
     - AOC.Grid
     - AOC.Main
+    - AOC.Foldable
 
 executables:
   2021-01:
@@ -64,4 +65,8 @@ executables:
   2021-08:
     source-dirs: "2021"
     main: 08.hs
+    dependencies: AOC
+  2021-09:
+    source-dirs: "2021"
+    main: 09.hs
     dependencies: AOC

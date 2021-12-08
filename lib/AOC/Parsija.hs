@@ -4,6 +4,7 @@ module AOC.Parsija
 
     , anyChar
     , satisfy
+    , satisfyMaybe
     , char
     , string
 
@@ -60,10 +61,14 @@ instance Alternative (Parser t) where
                 success@ParseSuccess {} -> success
                 ParseError errs2        -> ParseError (errs1 ++ errs2))
 
+
+satisfyMaybe :: String -> (t -> Maybe a) -> Parser t a
+satisfyMaybe desc p = Parser (\i ts -> case ts of
+    (t:ts') | Just x <- p t -> ParseSuccess x (i + 1) ts'
+    _                       -> ParseError [(i, desc)])
+
 satisfy :: String -> (t -> Bool) -> Parser t t
-satisfy descr p = Parser (\i ts -> case ts of
-    (t : ts') | p t -> ParseSuccess t (i + 1) ts'
-    _               -> ParseError [(i, descr)])
+satisfy desc p = satisfyMaybe desc (\t -> if p t then Just t else Nothing)
 
 anyChar :: Parser t t
 anyChar = satisfy "any character" (const True)

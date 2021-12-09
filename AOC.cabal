@@ -29,8 +29,8 @@ library
       AOC.Grid
       AOC.Main
       AOC.Foldable
-  other-modules:
       AOC.Dijkstra
+  other-modules:
       AOC.PQ
       AOC.Testi
       AOC.V2.Box

@@ -75,3 +75,7 @@ executables:
     source-dirs: "2021"
     main: 10.hs
     dependencies: AOC
+  2021-11:
+    source-dirs: "2021"
+    main: 11.hs
+    dependencies: AOC

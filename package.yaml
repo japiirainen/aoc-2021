@@ -79,3 +79,12 @@ executables:
     source-dirs: "2021"
     main: 11.hs
     dependencies: AOC
+  2021-12:
+    source-dirs: "2021"
+    main: 12.hs
+    dependencies: AOC
+  2021-13:
+    source-dirs: "2021"
+    main: 13.hs
+    dependencies: AOC
+

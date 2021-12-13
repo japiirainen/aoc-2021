@@ -1,5 +1,3 @@
-{-# LANGUAGE LambdaCase #-}
-
 module Main where
 
 import qualified AOC.Grid as G
@@ -26,9 +24,8 @@ step grid0 = go 0 grid0 (M.keys grid0)
 
 main :: IO ()
 main = pureMain $ \input -> do
-  grid <- for (G.fromString input) $ \case
-    c | isDigit c -> Right $ digitToInt c
-    c -> Left $ "Unknown char " ++ show c
+  grid <- for (G.fromString input) $ \c ->
+    if isDigit c then Right $ digitToInt c else Left $ "Unknown char" <> show c
 
   let grids = iterate (step . fst) (grid, 0)
       p1 = sum . map snd $ take (100 + 1) grids

@@ -1,5 +1,5 @@
 grid = [list(map(int, line))
-        for line in open('11-sample.txt').read().splitlines()]
+        for line in open('11.txt').read().splitlines()]
 
 
 r1 = 0

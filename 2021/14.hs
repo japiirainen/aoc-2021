@@ -1,65 +1,69 @@
+{-# LANGUAGE DeriveFoldable #-}
+{-# LANGUAGE DeriveFunctor #-}
+
 module Main where
 
 import AOC.Main (pureMain)
 import qualified AOC.Parsija as P
 import Data.Foldable (foldl')
-import Data.List (nub)
 import qualified Data.Map as M
+import Data.Monoid (Endo (..))
+import Data.Semigroup (stimes)
 
-type Polymer = [Char]
+data Pair a = Pair a a deriving (Eq, Foldable, Functor, Ord, Show)
 
-type Rules = M.Map (Char, Char) Char
+type Rules a = M.Map (Pair a) a
 
-parseInput :: P.Parser Char (Polymer, Rules)
-parseInput =
-  (,)
-    <$> P.many1 P.upper <* P.spaces
-    <*> (foldl' rule M.empty <$> P.many1 parseRule)
-  where
-    rule acc (a, b, c) = M.insert (a, b) c acc
-    parseRule =
-      (,,)
-        <$> P.upper
-        <*> P.upper <* P.string " -> " <* P.spaces
-        <*> P.upper <* P.spaces
+newtype Freqs a = Freqs {unFreqs :: M.Map a Integer} deriving (Show)
 
-newtype Freqs a = Freqs {unFreqs :: M.Map a Int}
+times :: Integer -> a -> Freqs a
+times n x = Freqs $ M.singleton x n
 
 instance Ord a => Semigroup (Freqs a) where
   Freqs a <> Freqs b = Freqs $ M.unionWith (+) a b
 
-instance Ord a => Monoid (Freqs a) where
-  mempty = Freqs M.empty
+instance Ord a => Monoid (Freqs a) where mempty = Freqs M.empty
 
-singleton :: Ord a => a -> Freqs a
-singleton x = Freqs $ M.singleton x 1
+separate :: (Foldable f, Ord a) => Freqs (f a) -> Freqs a
+separate = M.foldMapWithKey (\f n -> foldMap (times n) f) . unFreqs
 
-steps :: Rules -> Polymer -> Int -> Freqs Char
-steps rules polymer0 n0 =
-  foldMap singleton polymer0
-    <> mconcat [between M.! (x, y, n0) | (x, y) <- zip polymer0 (drop 1 polymer0)]
+initial :: Ord a => [a] -> Freqs (Pair a)
+initial l = mconcat $ zipWith (\x y -> times 1 (Pair x y)) l (drop 1 l)
+
+step :: Ord a => Rules a -> Freqs (Pair a) -> Freqs (Pair a)
+step rules (Freqs m) =
+  M.foldMapWithKey
+    ( \pair@(Pair x y) n -> case M.lookup pair rules of
+        Nothing -> times n pair
+        Just z -> times n (Pair x z) <> times n (Pair z y)
+    )
+    m
+
+solve :: Ord a => Rules a -> [a] -> Int -> Integer
+solve rules polymer n =
+  let steps = appEndo . stimes n . Endo $ step rules
+      freqs =
+        fmap (`div` 2) . unFreqs $
+          times 1 (head polymer) <> times 1 (last polymer)
+            <> separate (steps $ initial polymer)
+   in maximum freqs - minimum freqs
+
+parseInput :: P.Parser Char (String, Rules Char)
+parseInput =
+  (,)
+    <$> P.many1 P.upper <* P.spaces
+    <*> (foldl' insertRule M.empty <$> P.many1 parseRule)
   where
-    elements =
-      nub $
-        polymer0
-          <> [c | ((x, y), z) <- M.toList rules, c <- [x, y, z]]
-    between = M.fromList $ do
-      x <- elements
-      y <- elements
-      n <- [1 .. n0]
-      let val = case M.lookup (x, y) rules of
-            Nothing | n == 1 -> mempty
-            Nothing -> between M.! (x, y, n - 1)
-            Just z | n == 1 -> singleton z
-            Just z -> singleton z <> between M.! (x, z, n - 1) <> between M.! (z, y, n - 1)
-      pure ((x, y, n), val)
+    insertRule acc (x, y, z) = M.insert (Pair x y) z acc
+    parseRule =
+      (,,)
+        <$> P.upper
+        <*> P.upper <* P.spaces <* P.string "->" <* P.spaces
+        <*> P.upper <* P.spaces
 
 main :: IO ()
 main = pureMain $ \input -> do
-  (polymer0, rules) <- P.runParser parseInput input
-  let freqs10 = unFreqs $ steps rules polymer0 10
-      part1 = maximum freqs10 - minimum freqs10
-      freqs40 = unFreqs $ steps rules polymer0 40
-      part2 = maximum freqs40 - minimum freqs40
-
-  pure (pure part1, pure part2)
+  (polymer, rules) <- P.runParser parseInput input
+  let p1 = solve rules polymer 10
+      p2 = solve rules polymer 40
+  pure (pure p1, pure p2)

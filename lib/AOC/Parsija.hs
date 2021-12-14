@@ -1,71 +1,80 @@
 {-# LANGUAGE DeriveFunctor #-}
+
 module AOC.Parsija
-    ( Parser
+  ( Parser,
+    anyChar,
+    satisfy,
+    satisfyMaybe,
+    char,
+    upper,
+    lower,
+    string,
+    many1,
+    sepBy,
+    sepBy1,
+    chainl1,
+    alpha,
+    digit,
+    spaces,
+    decimal,
+    signedDecimal,
+    horizontalSpaces,
+    newline,
+    runParser,
+    hRunParser,
+  )
+where
 
-    , anyChar
-    , satisfy
-    , satisfyMaybe
-    , char
-    , string
-
-    , many1
-    , sepBy
-    , sepBy1
-    , chainl1
-
-    , alpha
-    , digit
-    , spaces
-    , decimal
-    , signedDecimal
-    , horizontalSpaces
-    , newline
-
-    , runParser
-    , hRunParser
-    ) where
-
-import           Control.Applicative (Alternative (..), optional)
-import           Control.Monad       (void)
-import           Data.Char           (isAlpha, isDigit, isSpace)
-import           Data.Functor        (($>))
-import           Data.List           (foldl', intercalate)
-import           Data.Maybe          (fromMaybe)
-import qualified System.IO           as IO
+import Control.Applicative (Alternative (..), optional)
+import Control.Monad (void)
+import Data.Char (isAlpha, isDigit, isSpace)
+import qualified Data.Char as Char
+import Data.Functor (($>))
+import Data.List (foldl', intercalate)
+import Data.Maybe (fromMaybe)
+import qualified System.IO as IO
 
 data ParseResult t a
-    = ParseSuccess !a !Int [t]
-    | ParseError [(Int, String)]
-    deriving (Functor, Show)
+  = ParseSuccess !a !Int [t]
+  | ParseError [(Int, String)]
+  deriving (Functor, Show)
 
 newtype Parser t a = Parser (Int -> [t] -> ParseResult t a)
 
 instance Functor (Parser t) where
-    fmap f (Parser g) = Parser (\i ts -> fmap f (g i ts))
+  fmap f (Parser g) = Parser (\i ts -> fmap f (g i ts))
 
 instance Applicative (Parser t) where
-    pure x                = Parser (ParseSuccess x)
-    Parser f <*> Parser g = Parser (\i ts ->
-        case f i ts of
-            ParseError errs        -> ParseError errs
-            ParseSuccess x i' ts'  -> case g i' ts' of
-                ParseError errs         -> ParseError errs
-                ParseSuccess y i'' ts'' -> ParseSuccess (x y) i'' ts'')
+  pure x = Parser (ParseSuccess x)
+  Parser f <*> Parser g =
+    Parser
+      ( \i ts ->
+          case f i ts of
+            ParseError errs -> ParseError errs
+            ParseSuccess x i' ts' -> case g i' ts' of
+              ParseError errs -> ParseError errs
+              ParseSuccess y i'' ts'' -> ParseSuccess (x y) i'' ts''
+      )
 
 instance Alternative (Parser t) where
-    empty                 = Parser (\_ _ -> ParseError [])
-    Parser f <|> Parser g = Parser (\i ts ->
-        case f i ts of
+  empty = Parser (\_ _ -> ParseError [])
+  Parser f <|> Parser g =
+    Parser
+      ( \i ts ->
+          case f i ts of
             success@ParseSuccess {} -> success
-            ParseError errs1             -> case g i ts of
-                success@ParseSuccess {} -> success
-                ParseError errs2        -> ParseError (errs1 ++ errs2))
-
+            ParseError errs1 -> case g i ts of
+              success@ParseSuccess {} -> success
+              ParseError errs2 -> ParseError (errs1 ++ errs2)
+      )
 
 satisfyMaybe :: String -> (t -> Maybe a) -> Parser t a
-satisfyMaybe desc p = Parser (\i ts -> case ts of
-    (t:ts') | Just x <- p t -> ParseSuccess x (i + 1) ts'
-    _                       -> ParseError [(i, desc)])
+satisfyMaybe desc p =
+  Parser
+    ( \i ts -> case ts of
+        (t : ts') | Just x <- p t -> ParseSuccess x (i + 1) ts'
+        _ -> ParseError [(i, desc)]
+    )
 
 satisfy :: String -> (t -> Bool) -> Parser t t
 satisfy desc p = satisfyMaybe desc (\t -> if p t then Just t else Nothing)
@@ -98,11 +107,18 @@ alpha = satisfy "alpha" isAlpha
 digit :: Parser Char Char
 digit = satisfy "digit" isDigit
 
+lower :: Parser Char Char
+lower = satisfy "lower" Char.isLower
+
+upper :: Parser Char Char
+upper = satisfy "upper" Char.isUpper
+
 spaces :: Parser Char ()
 spaces = void $ many $ satisfy "whitespace" isSpace
 
 horizontalSpaces :: Parser Char ()
-horizontalSpaces = void . many $ satisfy "horizontal whitespace" $ \c ->
+horizontalSpaces = void . many $
+  satisfy "horizontal whitespace" $ \c ->
     isSpace c && c /= '\n' && c /= '\r'
 
 newline :: Parser Char ()
@@ -116,11 +132,15 @@ signedDecimal = fmap (fromMaybe id) (optional (char '-' $> negate)) <*> decimal
 
 runParser :: Parser t a -> [t] -> Either String a
 runParser (Parser g) ts = case g 0 ts of
-    ParseSuccess x _ _ -> Right x
-    ParseError errs    -> Left $ "Expecting " ++ intercalate " OR "
-        [ err ++ " at position " ++ show i
-        | (i, err) <- errs
-        ]
+  ParseSuccess x _ _ -> Right x
+  ParseError errs ->
+    Left $
+      "Expecting "
+        ++ intercalate
+          " OR "
+          [ err ++ " at position " ++ show i
+            | (i, err) <- errs
+          ]
 
 hRunParser :: IO.Handle -> Parser Char a -> IO a
 hRunParser h p = IO.hGetContents h >>= either fail pure . runParser p

@@ -20,6 +20,7 @@ dependencies:
   - directory
   - selective
   - vector
+  - lens
 
 library:
   source-dirs: 

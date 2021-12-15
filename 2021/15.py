@@ -2,7 +2,6 @@ import heapq
 
 _risk = [list(map(int, line.strip())) for line in open("15.txt").readlines()]
 
-
 def lrp(risk):
     vis = [[0] * len(r) for r in risk]
     ps = [(0, 0, 0)]

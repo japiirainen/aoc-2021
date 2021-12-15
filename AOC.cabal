@@ -42,6 +42,7 @@ library
       base
     , containers
     , directory
+    , lens
     , megaparsec
     , mtl
     , pretty
@@ -62,6 +63,7 @@ executable 2021-01
     , base
     , containers
     , directory
+    , lens
     , megaparsec
     , mtl
     , pretty
@@ -82,6 +84,7 @@ executable 2021-02
     , base
     , containers
     , directory
+    , lens
     , megaparsec
     , mtl
     , pretty
@@ -102,6 +105,7 @@ executable 2021-03
     , base
     , containers
     , directory
+    , lens
     , megaparsec
     , mtl
     , pretty
@@ -122,6 +126,7 @@ executable 2021-04
     , base
     , containers
     , directory
+    , lens
     , megaparsec
     , mtl
     , pretty
@@ -142,6 +147,7 @@ executable 2021-05
     , base
     , containers
     , directory
+    , lens
     , megaparsec
     , mtl
     , pretty
@@ -162,6 +168,7 @@ executable 2021-06
     , base
     , containers
     , directory
+    , lens
     , megaparsec
     , mtl
     , pretty
@@ -182,6 +189,7 @@ executable 2021-07
     , base
     , containers
     , directory
+    , lens
     , megaparsec
     , mtl
     , pretty
@@ -202,6 +210,7 @@ executable 2021-08
     , base
     , containers
     , directory
+    , lens
     , megaparsec
     , mtl
     , pretty
@@ -222,6 +231,7 @@ executable 2021-09
     , base
     , containers
     , directory
+    , lens
     , megaparsec
     , mtl
     , pretty
@@ -242,6 +252,7 @@ executable 2021-10
     , base
     , containers
     , directory
+    , lens
     , megaparsec
     , mtl
     , pretty
@@ -262,6 +273,7 @@ executable 2021-11
     , base
     , containers
     , directory
+    , lens
     , megaparsec
     , mtl
     , pretty
@@ -282,6 +294,7 @@ executable 2021-12
     , base
     , containers
     , directory
+    , lens
     , megaparsec
     , mtl
     , pretty
@@ -302,6 +315,7 @@ executable 2021-13
     , base
     , containers
     , directory
+    , lens
     , megaparsec
     , mtl
     , pretty
@@ -322,6 +336,7 @@ executable 2021-14
     , base
     , containers
     , directory
+    , lens
     , megaparsec
     , mtl
     , pretty
@@ -342,6 +357,7 @@ executable 2021-15
     , base
     , containers
     , directory
+    , lens
     , megaparsec
     , mtl
     , pretty

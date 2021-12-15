@@ -27,8 +27,7 @@ solve grid = do
   case Dijkstra.dijkstraGoal dijkstra of
     Nothing -> Left "no path found"
     Just (_, _, path) ->
-      pure . sum $
-        mapMaybe (`M.lookup` grid) (drop 1 $ reverse path)
+      pure . sum $ mapMaybe (`M.lookup` grid) (drop 1 $ reverse path)
 
 extend :: Int -> G.Grid Int -> Either String (G.Grid Int)
 extend n grid = do
@@ -37,8 +36,8 @@ extend n grid = do
     Nothing -> Left "empty grid"
   pure $
     M.fromList $ do
-      xg <- [0 .. n -1]
-      yg <- [0 .. n -1]
+      xg <- [0 .. n - 1]
+      yg <- [0 .. n - 1]
       (pos, val) <- M.toList grid
       let pos' = pos .+. V2 (xg * gw) (yg * gh)
           val' = (val + xg + yg - 1) `mod` 9 + 1
@@ -47,7 +46,9 @@ extend n grid = do
 main :: IO ()
 main = pureMain $ \input -> do
   grid <- for (G.fromString input) $ \c ->
-    if isDigit c then Right $ digitToInt c else Left $ "Invalid character: " ++ show c
+    if isDigit c
+      then Right $ digitToInt c
+      else Left $ "Invalid character: " ++ show c
   part1 <- solve grid
   grid' <- extend 5 grid
   part2 <- solve grid'

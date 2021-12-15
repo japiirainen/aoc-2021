@@ -29,6 +29,7 @@ library:
     - AOC.List.Extended
     - AOC.Parsija
     - AOC.V2
+    - AOC.V2.Box
     - AOC.Grid
     - AOC.Main
     - AOC.Foldable
@@ -90,5 +91,9 @@ executables:
   2021-14:
     source-dirs: "2021"
     main: 14.hs
+    dependencies: AOC
+  2021-15:
+    source-dirs: "2021"
+    main: 15.hs
     dependencies: AOC
 

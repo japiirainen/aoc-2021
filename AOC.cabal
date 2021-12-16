@@ -31,6 +31,9 @@ library
       AOC.Main
       AOC.Foldable
       AOC.Dijkstra
+      AOC.Vector.Extra
+      AOC.Grid.Bounded
+      AOC.Functor.Fix
   other-modules:
       AOC.PQ
       AOC.Testi
@@ -347,6 +350,27 @@ executable 2021-14
 
 executable 2021-15
   main-is: 15.hs
+  other-modules:
+      Paths_AOC
+  hs-source-dirs:
+      2021
+  ghc-options: -Wall
+  build-depends:
+      AOC
+    , base
+    , containers
+    , directory
+    , lens
+    , megaparsec
+    , mtl
+    , pretty
+    , selective
+    , text
+    , vector
+  default-language: Haskell2010
+
+executable 2021-16
+  main-is: 16.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:

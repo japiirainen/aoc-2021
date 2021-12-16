@@ -35,6 +35,9 @@ library:
     - AOC.Main
     - AOC.Foldable
     - AOC.Dijkstra
+    - AOC.Vector.Extra
+    - AOC.Grid.Bounded
+    - AOC.Functor.Fix
 
 executables:
   2021-01:
@@ -97,4 +100,7 @@ executables:
     source-dirs: "2021"
     main: 15.hs
     dependencies: AOC
-
+  2021-16:
+    source-dirs: "2021"
+    main: 16.hs
+    dependencies: AOC

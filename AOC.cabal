@@ -22,6 +22,7 @@ source-repository head
 
 library
   exposed-modules:
+      AOC
       AOC.List.Transformer
       AOC.List.Extended
       AOC.Parsija
@@ -40,17 +41,92 @@ library
       Paths_AOC
   hs-source-dirs:
       lib
+  default-extensions:
+      LambdaCase
+      AllowAmbiguousTypes
+      ApplicativeDo
+      BangPatterns
+      BlockArguments
+      ConstrainedClassMethods
+      ConstraintKinds
+      DataKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      ExtendedDefaultRules
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      HexFloatLiterals
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      LambdaCase
+      LiberalTypeSynonyms
+      MonadComprehensions
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      NamedWildCards
+      NoMonomorphismRestriction
+      NumericUnderscores
+      OverloadedStrings
+      PatternGuards
+      PatternSynonyms
+      ParallelListComp
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RecordWildCards
+      RecursiveDo
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TemplateHaskell
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeFamilies
+      TypeSynonymInstances
+      UnicodeSyntax
+      ViewPatterns
   ghc-options: -Wall
   build-depends:
-      base
+      arithmoi
+    , array
+    , base
+    , comonad
     , containers
     , directory
+    , fingertree
+    , kan-extensions
+    , lattices
     , lens
+    , linear
     , megaparsec
+    , monad-dijkstra
     , mtl
+    , parser-combinators
     , pretty
+    , profunctors
+    , safe
     , selective
+    , split
     , text
+    , unordered-containers
     , vector
   default-language: Haskell2010
 
@@ -60,18 +136,93 @@ executable 2021-01
       Paths_AOC
   hs-source-dirs:
       2021
+  default-extensions:
+      LambdaCase
+      AllowAmbiguousTypes
+      ApplicativeDo
+      BangPatterns
+      BlockArguments
+      ConstrainedClassMethods
+      ConstraintKinds
+      DataKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      ExtendedDefaultRules
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      HexFloatLiterals
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      LambdaCase
+      LiberalTypeSynonyms
+      MonadComprehensions
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      NamedWildCards
+      NoMonomorphismRestriction
+      NumericUnderscores
+      OverloadedStrings
+      PatternGuards
+      PatternSynonyms
+      ParallelListComp
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RecordWildCards
+      RecursiveDo
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TemplateHaskell
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeFamilies
+      TypeSynonymInstances
+      UnicodeSyntax
+      ViewPatterns
   ghc-options: -Wall
   build-depends:
       AOC
+    , arithmoi
+    , array
     , base
+    , comonad
     , containers
     , directory
+    , fingertree
+    , kan-extensions
+    , lattices
     , lens
+    , linear
     , megaparsec
+    , monad-dijkstra
     , mtl
+    , parser-combinators
     , pretty
+    , profunctors
+    , safe
     , selective
+    , split
     , text
+    , unordered-containers
     , vector
   default-language: Haskell2010
 
@@ -81,18 +232,93 @@ executable 2021-02
       Paths_AOC
   hs-source-dirs:
       2021
+  default-extensions:
+      LambdaCase
+      AllowAmbiguousTypes
+      ApplicativeDo
+      BangPatterns
+      BlockArguments
+      ConstrainedClassMethods
+      ConstraintKinds
+      DataKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      ExtendedDefaultRules
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      HexFloatLiterals
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      LambdaCase
+      LiberalTypeSynonyms
+      MonadComprehensions
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      NamedWildCards
+      NoMonomorphismRestriction
+      NumericUnderscores
+      OverloadedStrings
+      PatternGuards
+      PatternSynonyms
+      ParallelListComp
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RecordWildCards
+      RecursiveDo
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TemplateHaskell
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeFamilies
+      TypeSynonymInstances
+      UnicodeSyntax
+      ViewPatterns
   ghc-options: -Wall
   build-depends:
       AOC
+    , arithmoi
+    , array
     , base
+    , comonad
     , containers
     , directory
+    , fingertree
+    , kan-extensions
+    , lattices
     , lens
+    , linear
     , megaparsec
+    , monad-dijkstra
     , mtl
+    , parser-combinators
     , pretty
+    , profunctors
+    , safe
     , selective
+    , split
     , text
+    , unordered-containers
     , vector
   default-language: Haskell2010
 
@@ -102,18 +328,93 @@ executable 2021-03
       Paths_AOC
   hs-source-dirs:
       2021
+  default-extensions:
+      LambdaCase
+      AllowAmbiguousTypes
+      ApplicativeDo
+      BangPatterns
+      BlockArguments
+      ConstrainedClassMethods
+      ConstraintKinds
+      DataKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      ExtendedDefaultRules
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      HexFloatLiterals
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      LambdaCase
+      LiberalTypeSynonyms
+      MonadComprehensions
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      NamedWildCards
+      NoMonomorphismRestriction
+      NumericUnderscores
+      OverloadedStrings
+      PatternGuards
+      PatternSynonyms
+      ParallelListComp
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RecordWildCards
+      RecursiveDo
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TemplateHaskell
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeFamilies
+      TypeSynonymInstances
+      UnicodeSyntax
+      ViewPatterns
   ghc-options: -Wall
   build-depends:
       AOC
+    , arithmoi
+    , array
     , base
+    , comonad
     , containers
     , directory
+    , fingertree
+    , kan-extensions
+    , lattices
     , lens
+    , linear
     , megaparsec
+    , monad-dijkstra
     , mtl
+    , parser-combinators
     , pretty
+    , profunctors
+    , safe
     , selective
+    , split
     , text
+    , unordered-containers
     , vector
   default-language: Haskell2010
 
@@ -123,18 +424,93 @@ executable 2021-04
       Paths_AOC
   hs-source-dirs:
       2021
+  default-extensions:
+      LambdaCase
+      AllowAmbiguousTypes
+      ApplicativeDo
+      BangPatterns
+      BlockArguments
+      ConstrainedClassMethods
+      ConstraintKinds
+      DataKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      ExtendedDefaultRules
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      HexFloatLiterals
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      LambdaCase
+      LiberalTypeSynonyms
+      MonadComprehensions
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      NamedWildCards
+      NoMonomorphismRestriction
+      NumericUnderscores
+      OverloadedStrings
+      PatternGuards
+      PatternSynonyms
+      ParallelListComp
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RecordWildCards
+      RecursiveDo
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TemplateHaskell
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeFamilies
+      TypeSynonymInstances
+      UnicodeSyntax
+      ViewPatterns
   ghc-options: -Wall
   build-depends:
       AOC
+    , arithmoi
+    , array
     , base
+    , comonad
     , containers
     , directory
+    , fingertree
+    , kan-extensions
+    , lattices
     , lens
+    , linear
     , megaparsec
+    , monad-dijkstra
     , mtl
+    , parser-combinators
     , pretty
+    , profunctors
+    , safe
     , selective
+    , split
     , text
+    , unordered-containers
     , vector
   default-language: Haskell2010
 
@@ -144,18 +520,93 @@ executable 2021-05
       Paths_AOC
   hs-source-dirs:
       2021
+  default-extensions:
+      LambdaCase
+      AllowAmbiguousTypes
+      ApplicativeDo
+      BangPatterns
+      BlockArguments
+      ConstrainedClassMethods
+      ConstraintKinds
+      DataKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      ExtendedDefaultRules
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      HexFloatLiterals
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      LambdaCase
+      LiberalTypeSynonyms
+      MonadComprehensions
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      NamedWildCards
+      NoMonomorphismRestriction
+      NumericUnderscores
+      OverloadedStrings
+      PatternGuards
+      PatternSynonyms
+      ParallelListComp
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RecordWildCards
+      RecursiveDo
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TemplateHaskell
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeFamilies
+      TypeSynonymInstances
+      UnicodeSyntax
+      ViewPatterns
   ghc-options: -Wall
   build-depends:
       AOC
+    , arithmoi
+    , array
     , base
+    , comonad
     , containers
     , directory
+    , fingertree
+    , kan-extensions
+    , lattices
     , lens
+    , linear
     , megaparsec
+    , monad-dijkstra
     , mtl
+    , parser-combinators
     , pretty
+    , profunctors
+    , safe
     , selective
+    , split
     , text
+    , unordered-containers
     , vector
   default-language: Haskell2010
 
@@ -165,18 +616,93 @@ executable 2021-06
       Paths_AOC
   hs-source-dirs:
       2021
+  default-extensions:
+      LambdaCase
+      AllowAmbiguousTypes
+      ApplicativeDo
+      BangPatterns
+      BlockArguments
+      ConstrainedClassMethods
+      ConstraintKinds
+      DataKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      ExtendedDefaultRules
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      HexFloatLiterals
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      LambdaCase
+      LiberalTypeSynonyms
+      MonadComprehensions
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      NamedWildCards
+      NoMonomorphismRestriction
+      NumericUnderscores
+      OverloadedStrings
+      PatternGuards
+      PatternSynonyms
+      ParallelListComp
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RecordWildCards
+      RecursiveDo
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TemplateHaskell
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeFamilies
+      TypeSynonymInstances
+      UnicodeSyntax
+      ViewPatterns
   ghc-options: -Wall
   build-depends:
       AOC
+    , arithmoi
+    , array
     , base
+    , comonad
     , containers
     , directory
+    , fingertree
+    , kan-extensions
+    , lattices
     , lens
+    , linear
     , megaparsec
+    , monad-dijkstra
     , mtl
+    , parser-combinators
     , pretty
+    , profunctors
+    , safe
     , selective
+    , split
     , text
+    , unordered-containers
     , vector
   default-language: Haskell2010
 
@@ -186,18 +712,93 @@ executable 2021-07
       Paths_AOC
   hs-source-dirs:
       2021
+  default-extensions:
+      LambdaCase
+      AllowAmbiguousTypes
+      ApplicativeDo
+      BangPatterns
+      BlockArguments
+      ConstrainedClassMethods
+      ConstraintKinds
+      DataKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      ExtendedDefaultRules
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      HexFloatLiterals
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      LambdaCase
+      LiberalTypeSynonyms
+      MonadComprehensions
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      NamedWildCards
+      NoMonomorphismRestriction
+      NumericUnderscores
+      OverloadedStrings
+      PatternGuards
+      PatternSynonyms
+      ParallelListComp
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RecordWildCards
+      RecursiveDo
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TemplateHaskell
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeFamilies
+      TypeSynonymInstances
+      UnicodeSyntax
+      ViewPatterns
   ghc-options: -Wall
   build-depends:
       AOC
+    , arithmoi
+    , array
     , base
+    , comonad
     , containers
     , directory
+    , fingertree
+    , kan-extensions
+    , lattices
     , lens
+    , linear
     , megaparsec
+    , monad-dijkstra
     , mtl
+    , parser-combinators
     , pretty
+    , profunctors
+    , safe
     , selective
+    , split
     , text
+    , unordered-containers
     , vector
   default-language: Haskell2010
 
@@ -207,18 +808,93 @@ executable 2021-08
       Paths_AOC
   hs-source-dirs:
       2021
+  default-extensions:
+      LambdaCase
+      AllowAmbiguousTypes
+      ApplicativeDo
+      BangPatterns
+      BlockArguments
+      ConstrainedClassMethods
+      ConstraintKinds
+      DataKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      ExtendedDefaultRules
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      HexFloatLiterals
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      LambdaCase
+      LiberalTypeSynonyms
+      MonadComprehensions
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      NamedWildCards
+      NoMonomorphismRestriction
+      NumericUnderscores
+      OverloadedStrings
+      PatternGuards
+      PatternSynonyms
+      ParallelListComp
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RecordWildCards
+      RecursiveDo
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TemplateHaskell
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeFamilies
+      TypeSynonymInstances
+      UnicodeSyntax
+      ViewPatterns
   ghc-options: -Wall
   build-depends:
       AOC
+    , arithmoi
+    , array
     , base
+    , comonad
     , containers
     , directory
+    , fingertree
+    , kan-extensions
+    , lattices
     , lens
+    , linear
     , megaparsec
+    , monad-dijkstra
     , mtl
+    , parser-combinators
     , pretty
+    , profunctors
+    , safe
     , selective
+    , split
     , text
+    , unordered-containers
     , vector
   default-language: Haskell2010
 
@@ -228,18 +904,93 @@ executable 2021-09
       Paths_AOC
   hs-source-dirs:
       2021
+  default-extensions:
+      LambdaCase
+      AllowAmbiguousTypes
+      ApplicativeDo
+      BangPatterns
+      BlockArguments
+      ConstrainedClassMethods
+      ConstraintKinds
+      DataKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      ExtendedDefaultRules
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      HexFloatLiterals
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      LambdaCase
+      LiberalTypeSynonyms
+      MonadComprehensions
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      NamedWildCards
+      NoMonomorphismRestriction
+      NumericUnderscores
+      OverloadedStrings
+      PatternGuards
+      PatternSynonyms
+      ParallelListComp
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RecordWildCards
+      RecursiveDo
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TemplateHaskell
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeFamilies
+      TypeSynonymInstances
+      UnicodeSyntax
+      ViewPatterns
   ghc-options: -Wall
   build-depends:
       AOC
+    , arithmoi
+    , array
     , base
+    , comonad
     , containers
     , directory
+    , fingertree
+    , kan-extensions
+    , lattices
     , lens
+    , linear
     , megaparsec
+    , monad-dijkstra
     , mtl
+    , parser-combinators
     , pretty
+    , profunctors
+    , safe
     , selective
+    , split
     , text
+    , unordered-containers
     , vector
   default-language: Haskell2010
 
@@ -249,18 +1000,93 @@ executable 2021-10
       Paths_AOC
   hs-source-dirs:
       2021
+  default-extensions:
+      LambdaCase
+      AllowAmbiguousTypes
+      ApplicativeDo
+      BangPatterns
+      BlockArguments
+      ConstrainedClassMethods
+      ConstraintKinds
+      DataKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      ExtendedDefaultRules
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      HexFloatLiterals
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      LambdaCase
+      LiberalTypeSynonyms
+      MonadComprehensions
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      NamedWildCards
+      NoMonomorphismRestriction
+      NumericUnderscores
+      OverloadedStrings
+      PatternGuards
+      PatternSynonyms
+      ParallelListComp
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RecordWildCards
+      RecursiveDo
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TemplateHaskell
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeFamilies
+      TypeSynonymInstances
+      UnicodeSyntax
+      ViewPatterns
   ghc-options: -Wall
   build-depends:
       AOC
+    , arithmoi
+    , array
     , base
+    , comonad
     , containers
     , directory
+    , fingertree
+    , kan-extensions
+    , lattices
     , lens
+    , linear
     , megaparsec
+    , monad-dijkstra
     , mtl
+    , parser-combinators
     , pretty
+    , profunctors
+    , safe
     , selective
+    , split
     , text
+    , unordered-containers
     , vector
   default-language: Haskell2010
 
@@ -270,18 +1096,93 @@ executable 2021-11
       Paths_AOC
   hs-source-dirs:
       2021
+  default-extensions:
+      LambdaCase
+      AllowAmbiguousTypes
+      ApplicativeDo
+      BangPatterns
+      BlockArguments
+      ConstrainedClassMethods
+      ConstraintKinds
+      DataKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      ExtendedDefaultRules
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      HexFloatLiterals
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      LambdaCase
+      LiberalTypeSynonyms
+      MonadComprehensions
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      NamedWildCards
+      NoMonomorphismRestriction
+      NumericUnderscores
+      OverloadedStrings
+      PatternGuards
+      PatternSynonyms
+      ParallelListComp
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RecordWildCards
+      RecursiveDo
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TemplateHaskell
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeFamilies
+      TypeSynonymInstances
+      UnicodeSyntax
+      ViewPatterns
   ghc-options: -Wall
   build-depends:
       AOC
+    , arithmoi
+    , array
     , base
+    , comonad
     , containers
     , directory
+    , fingertree
+    , kan-extensions
+    , lattices
     , lens
+    , linear
     , megaparsec
+    , monad-dijkstra
     , mtl
+    , parser-combinators
     , pretty
+    , profunctors
+    , safe
     , selective
+    , split
     , text
+    , unordered-containers
     , vector
   default-language: Haskell2010
 
@@ -291,18 +1192,93 @@ executable 2021-12
       Paths_AOC
   hs-source-dirs:
       2021
+  default-extensions:
+      LambdaCase
+      AllowAmbiguousTypes
+      ApplicativeDo
+      BangPatterns
+      BlockArguments
+      ConstrainedClassMethods
+      ConstraintKinds
+      DataKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      ExtendedDefaultRules
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      HexFloatLiterals
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      LambdaCase
+      LiberalTypeSynonyms
+      MonadComprehensions
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      NamedWildCards
+      NoMonomorphismRestriction
+      NumericUnderscores
+      OverloadedStrings
+      PatternGuards
+      PatternSynonyms
+      ParallelListComp
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RecordWildCards
+      RecursiveDo
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TemplateHaskell
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeFamilies
+      TypeSynonymInstances
+      UnicodeSyntax
+      ViewPatterns
   ghc-options: -Wall
   build-depends:
       AOC
+    , arithmoi
+    , array
     , base
+    , comonad
     , containers
     , directory
+    , fingertree
+    , kan-extensions
+    , lattices
     , lens
+    , linear
     , megaparsec
+    , monad-dijkstra
     , mtl
+    , parser-combinators
     , pretty
+    , profunctors
+    , safe
     , selective
+    , split
     , text
+    , unordered-containers
     , vector
   default-language: Haskell2010
 
@@ -312,18 +1288,93 @@ executable 2021-13
       Paths_AOC
   hs-source-dirs:
       2021
+  default-extensions:
+      LambdaCase
+      AllowAmbiguousTypes
+      ApplicativeDo
+      BangPatterns
+      BlockArguments
+      ConstrainedClassMethods
+      ConstraintKinds
+      DataKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      ExtendedDefaultRules
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      HexFloatLiterals
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      LambdaCase
+      LiberalTypeSynonyms
+      MonadComprehensions
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      NamedWildCards
+      NoMonomorphismRestriction
+      NumericUnderscores
+      OverloadedStrings
+      PatternGuards
+      PatternSynonyms
+      ParallelListComp
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RecordWildCards
+      RecursiveDo
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TemplateHaskell
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeFamilies
+      TypeSynonymInstances
+      UnicodeSyntax
+      ViewPatterns
   ghc-options: -Wall
   build-depends:
       AOC
+    , arithmoi
+    , array
     , base
+    , comonad
     , containers
     , directory
+    , fingertree
+    , kan-extensions
+    , lattices
     , lens
+    , linear
     , megaparsec
+    , monad-dijkstra
     , mtl
+    , parser-combinators
     , pretty
+    , profunctors
+    , safe
     , selective
+    , split
     , text
+    , unordered-containers
     , vector
   default-language: Haskell2010
 
@@ -333,18 +1384,93 @@ executable 2021-14
       Paths_AOC
   hs-source-dirs:
       2021
+  default-extensions:
+      LambdaCase
+      AllowAmbiguousTypes
+      ApplicativeDo
+      BangPatterns
+      BlockArguments
+      ConstrainedClassMethods
+      ConstraintKinds
+      DataKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      ExtendedDefaultRules
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      HexFloatLiterals
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      LambdaCase
+      LiberalTypeSynonyms
+      MonadComprehensions
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      NamedWildCards
+      NoMonomorphismRestriction
+      NumericUnderscores
+      OverloadedStrings
+      PatternGuards
+      PatternSynonyms
+      ParallelListComp
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RecordWildCards
+      RecursiveDo
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TemplateHaskell
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeFamilies
+      TypeSynonymInstances
+      UnicodeSyntax
+      ViewPatterns
   ghc-options: -Wall
   build-depends:
       AOC
+    , arithmoi
+    , array
     , base
+    , comonad
     , containers
     , directory
+    , fingertree
+    , kan-extensions
+    , lattices
     , lens
+    , linear
     , megaparsec
+    , monad-dijkstra
     , mtl
+    , parser-combinators
     , pretty
+    , profunctors
+    , safe
     , selective
+    , split
     , text
+    , unordered-containers
     , vector
   default-language: Haskell2010
 
@@ -354,18 +1480,93 @@ executable 2021-15
       Paths_AOC
   hs-source-dirs:
       2021
+  default-extensions:
+      LambdaCase
+      AllowAmbiguousTypes
+      ApplicativeDo
+      BangPatterns
+      BlockArguments
+      ConstrainedClassMethods
+      ConstraintKinds
+      DataKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      ExtendedDefaultRules
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      HexFloatLiterals
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      LambdaCase
+      LiberalTypeSynonyms
+      MonadComprehensions
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      NamedWildCards
+      NoMonomorphismRestriction
+      NumericUnderscores
+      OverloadedStrings
+      PatternGuards
+      PatternSynonyms
+      ParallelListComp
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RecordWildCards
+      RecursiveDo
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TemplateHaskell
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeFamilies
+      TypeSynonymInstances
+      UnicodeSyntax
+      ViewPatterns
   ghc-options: -Wall
   build-depends:
       AOC
+    , arithmoi
+    , array
     , base
+    , comonad
     , containers
     , directory
+    , fingertree
+    , kan-extensions
+    , lattices
     , lens
+    , linear
     , megaparsec
+    , monad-dijkstra
     , mtl
+    , parser-combinators
     , pretty
+    , profunctors
+    , safe
     , selective
+    , split
     , text
+    , unordered-containers
     , vector
   default-language: Haskell2010
 
@@ -375,18 +1576,93 @@ executable 2021-16
       Paths_AOC
   hs-source-dirs:
       2021
+  default-extensions:
+      LambdaCase
+      AllowAmbiguousTypes
+      ApplicativeDo
+      BangPatterns
+      BlockArguments
+      ConstrainedClassMethods
+      ConstraintKinds
+      DataKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      ExtendedDefaultRules
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      HexFloatLiterals
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      LambdaCase
+      LiberalTypeSynonyms
+      MonadComprehensions
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      NamedWildCards
+      NoMonomorphismRestriction
+      NumericUnderscores
+      OverloadedStrings
+      PatternGuards
+      PatternSynonyms
+      ParallelListComp
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RecordWildCards
+      RecursiveDo
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TemplateHaskell
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeFamilies
+      TypeSynonymInstances
+      UnicodeSyntax
+      ViewPatterns
   ghc-options: -Wall
   build-depends:
       AOC
+    , arithmoi
+    , array
     , base
+    , comonad
     , containers
     , directory
+    , fingertree
+    , kan-extensions
+    , lattices
     , lens
+    , linear
     , megaparsec
+    , monad-dijkstra
     , mtl
+    , parser-combinators
     , pretty
+    , profunctors
+    , safe
     , selective
+    , split
     , text
+    , unordered-containers
     , vector
   default-language: Haskell2010
 
@@ -396,17 +1672,92 @@ executable 2021-17
       Paths_AOC
   hs-source-dirs:
       2021
+  default-extensions:
+      LambdaCase
+      AllowAmbiguousTypes
+      ApplicativeDo
+      BangPatterns
+      BlockArguments
+      ConstrainedClassMethods
+      ConstraintKinds
+      DataKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      ExtendedDefaultRules
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      HexFloatLiterals
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      LambdaCase
+      LiberalTypeSynonyms
+      MonadComprehensions
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      NamedWildCards
+      NoMonomorphismRestriction
+      NumericUnderscores
+      OverloadedStrings
+      PatternGuards
+      PatternSynonyms
+      ParallelListComp
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RecordWildCards
+      RecursiveDo
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TemplateHaskell
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeFamilies
+      TypeSynonymInstances
+      UnicodeSyntax
+      ViewPatterns
   ghc-options: -Wall
   build-depends:
       AOC
+    , arithmoi
+    , array
     , base
+    , comonad
     , containers
     , directory
+    , fingertree
+    , kan-extensions
+    , lattices
     , lens
+    , linear
     , megaparsec
+    , monad-dijkstra
     , mtl
+    , parser-combinators
     , pretty
+    , profunctors
+    , safe
     , selective
+    , split
     , text
+    , unordered-containers
     , vector
   default-language: Haskell2010

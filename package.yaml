@@ -10,6 +10,69 @@ extra-source-files:
 
 ghc-options: -Wall
 
+default-extensions:
+  - LambdaCase
+  - AllowAmbiguousTypes
+  - ApplicativeDo
+  - BangPatterns
+  - BlockArguments
+  - ConstrainedClassMethods
+  - ConstraintKinds
+  - DataKinds
+  - DeriveDataTypeable
+  - DeriveFoldable
+  - DeriveFunctor
+  - DeriveGeneric
+  - DeriveLift
+  - DeriveTraversable
+  - DerivingVia
+  - DoAndIfThenElse
+  - EmptyCase
+  - EmptyDataDecls
+  - EmptyDataDeriving
+  - ExistentialQuantification
+  - ExplicitForAll
+  - ExtendedDefaultRules
+  - FlexibleContexts
+  - FlexibleInstances
+  - GADTs
+  - HexFloatLiterals
+  - ImportQualifiedPost
+  - InstanceSigs
+  - KindSignatures
+  - LambdaCase
+  - LiberalTypeSynonyms
+  - MonadComprehensions
+  - MultiParamTypeClasses
+  - MultiWayIf
+  - NamedFieldPuns
+  - NamedWildCards
+  - NoMonomorphismRestriction
+  - NumericUnderscores
+  - OverloadedStrings
+  - PatternGuards
+  - PatternSynonyms
+  - ParallelListComp
+  - PolyKinds
+  - PostfixOperators
+  - RankNTypes
+  - RecordWildCards
+  - RecursiveDo
+  - RelaxedPolyRec
+  - ScopedTypeVariables
+  - StandaloneDeriving
+  - StandaloneKindSignatures
+  - StarIsType
+  - TemplateHaskell
+  - TraditionalRecordSyntax
+  - TupleSections
+  - TypeApplications
+  - TypeOperators
+  - TypeFamilies
+  - TypeSynonymInstances
+  - UnicodeSyntax
+  - ViewPatterns
+
 dependencies:
   - base
   - megaparsec
@@ -21,11 +84,25 @@ dependencies:
   - selective
   - vector
   - lens
+  - array
+  - comonad
+  - fingertree
+  - kan-extensions
+  - lattices
+  - linear
+  - monad-dijkstra
+  - profunctors
+  - safe
+  - split
+  - unordered-containers
+  - arithmoi
+  - parser-combinators
 
 library:
   source-dirs: 
     - lib
   exposed-modules:
+    - AOC
     - AOC.List.Transformer
     - AOC.List.Extended
     - AOC.Parsija

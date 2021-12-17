@@ -1,16 +1,14 @@
 module Main where
 
+import AOC (Parsec, Void, guard, newline, number, parseE)
 import AOC.Main (pureMain)
-import qualified AOC.Parsija as P
-import Control.Monad (guard)
 
 type Bounds = ((Int, Int), (Int, Int))
 
-parseInput :: P.Parser Char Bounds
-parseInput = (,) <$> px <*> py
+format :: Parsec Void String Bounds
+format = (,) <$ "target area: x=" <*> range <* ", y=" <*> range <* newline
   where
-    px = (,) <$> (P.string "target area: x=" *> P.decimal) <*> (P.string ".." *> P.decimal <* P.string ",")
-    py = (,) <$> (P.spaces *> P.string "y=-" *> (negate <$> P.decimal)) <*> (P.string "..-" *> (negate <$> P.decimal))
+    range = (,) <$> number <* ".." <*> number
 
 arc :: Bounds -> (Int, Int) -> [(Int, Int)]
 arc (_, (ymin, _)) = takeWhile (\(_, y) -> y >= ymin) . steps (0, 0)
@@ -32,5 +30,5 @@ arcs bs@((_, xmax), (ymin, _)) = do
 
 main :: IO ()
 main = pureMain $ \input -> do
-  bounds <- P.runParser parseInput input
+  bounds <- parseE format input
   pure (pure (maximum . (concatMap . map) snd $ arcs bounds), pure (length $ arcs bounds))

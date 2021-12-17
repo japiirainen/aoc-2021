@@ -1,11 +1,11 @@
 module Main where
 
-import AOC (Parsec, Void, guard, newline, number, parseE)
+import AOC (Parser, guard, newline, number, parseE)
 import AOC.Main (pureMain)
 
 type Bounds = ((Int, Int), (Int, Int))
 
-format :: Parsec Void String Bounds
+format :: Parser Bounds
 format = (,) <$ "target area: x=" <*> range <* ", y=" <*> range <* newline
   where
     range = (,) <$> number <* ".." <*> number

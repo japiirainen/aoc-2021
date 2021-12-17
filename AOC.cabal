@@ -389,3 +389,24 @@ executable 2021-16
     , text
     , vector
   default-language: Haskell2010
+
+executable 2021-17
+  main-is: 17.hs
+  other-modules:
+      Paths_AOC
+  hs-source-dirs:
+      2021
+  ghc-options: -Wall
+  build-depends:
+      AOC
+    , base
+    , containers
+    , directory
+    , lens
+    , megaparsec
+    , mtl
+    , pretty
+    , selective
+    , text
+    , vector
+  default-language: Haskell2010

@@ -116,7 +116,6 @@ parseIO p s = case runParser (p <* eof) "" s of
 parseInput :: Parser a -> IO a
 parseInput p = parseIO p =<< readInput
 
--- | Runs a parser on each input line isolated from the others.
 eachLine :: Parser a -> Parser [a]
 eachLine p = do
   input <- getInput

@@ -185,3 +185,7 @@ executables:
     source-dirs: "2021"
     main: 17.hs
     dependencies: AOC
+  2021-18:
+    source-dirs: "2021"
+    main: 18.hs
+    dependencies: AOC

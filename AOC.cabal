@@ -2050,3 +2050,99 @@ executable 2021-19
     , unordered-containers
     , vector
   default-language: Haskell2010
+
+executable 2021-19-alt
+  main-is: 19-alt.hs
+  other-modules:
+      Paths_AOC
+  hs-source-dirs:
+      2021
+  default-extensions:
+      LambdaCase
+      AllowAmbiguousTypes
+      ApplicativeDo
+      BangPatterns
+      BlockArguments
+      ConstrainedClassMethods
+      ConstraintKinds
+      DataKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      ExtendedDefaultRules
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      HexFloatLiterals
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      LambdaCase
+      LiberalTypeSynonyms
+      MonadComprehensions
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      NamedWildCards
+      NoMonomorphismRestriction
+      NumericUnderscores
+      OverloadedStrings
+      PatternGuards
+      PatternSynonyms
+      ParallelListComp
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RecordWildCards
+      RecursiveDo
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TemplateHaskell
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeFamilies
+      TypeSynonymInstances
+      UnicodeSyntax
+      ViewPatterns
+  ghc-options: -Wall
+  build-depends:
+      AOC
+    , arithmoi
+    , array
+    , base
+    , comonad
+    , containers
+    , directory
+    , fingertree
+    , kan-extensions
+    , lattices
+    , lens
+    , linear
+    , megaparsec
+    , monad-dijkstra
+    , mtl
+    , parser-combinators
+    , pretty
+    , profunctors
+    , safe
+    , selective
+    , split
+    , text
+    , unordered-containers
+    , vector
+  default-language: Haskell2010

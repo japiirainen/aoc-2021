@@ -97,6 +97,7 @@ dependencies:
   - unordered-containers
   - arithmoi
   - parser-combinators
+  - split
 
 library:
   source-dirs: 

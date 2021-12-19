@@ -5,7 +5,7 @@ module Main where
 import AOC
 import AOC.Main (pureMain)
 
-data SnailFish = Pure Int | Pair SnailFish SnailFish
+data SnailFish = Pure Int | Pair SnailFish SnailFish deriving Eq
 
 parseSnailFish :: Parser SnailFish
 parseSnailFish = Pure <$> decimal <|> pair
@@ -37,8 +37,11 @@ split (Pure n)
   | otherwise = Nothing
 split (Pair a b) = flip Pair b <$> split a <|> Pair a <$> split b
 
+reduce :: SnailFish -> Maybe SnailFish
+reduce x = explode x <|> split x
+
 final :: SnailFish -> SnailFish
-final x = maybe x final $ explode x <|> split x
+final x = maybe x final $ reduce x
 
 instance Num SnailFish where
   a + b = final (Pair a b)

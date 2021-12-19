@@ -27,6 +27,7 @@ library
       AOC.List.Extended
       AOC.Parsija
       AOC.V2
+      AOC.V3
       AOC.V2.Box
       AOC.Grid
       AOC.Main

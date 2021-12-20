@@ -98,6 +98,7 @@ dependencies:
   - arithmoi
   - parser-combinators
   - split
+  - MemoTrie
 
 library:
   source-dirs: 
@@ -202,4 +203,8 @@ executables:
   2021-19-alt:
     source-dirs: "2021"
     main: 19-alt.hs
+    dependencies: AOC
+  2021-20:
+    source-dirs: "2021"
+    main: 20.hs
     dependencies: AOC

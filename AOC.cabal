@@ -106,7 +106,8 @@ library
       ViewPatterns
   ghc-options: -Wall
   build-depends:
-      arithmoi
+      MemoTrie
+    , arithmoi
     , array
     , base
     , comonad
@@ -202,6 +203,7 @@ executable 2021-01
   ghc-options: -Wall
   build-depends:
       AOC
+    , MemoTrie
     , arithmoi
     , array
     , base
@@ -298,6 +300,7 @@ executable 2021-02
   ghc-options: -Wall
   build-depends:
       AOC
+    , MemoTrie
     , arithmoi
     , array
     , base
@@ -394,6 +397,7 @@ executable 2021-03
   ghc-options: -Wall
   build-depends:
       AOC
+    , MemoTrie
     , arithmoi
     , array
     , base
@@ -490,6 +494,7 @@ executable 2021-04
   ghc-options: -Wall
   build-depends:
       AOC
+    , MemoTrie
     , arithmoi
     , array
     , base
@@ -586,6 +591,7 @@ executable 2021-05
   ghc-options: -Wall
   build-depends:
       AOC
+    , MemoTrie
     , arithmoi
     , array
     , base
@@ -682,6 +688,7 @@ executable 2021-06
   ghc-options: -Wall
   build-depends:
       AOC
+    , MemoTrie
     , arithmoi
     , array
     , base
@@ -778,6 +785,7 @@ executable 2021-07
   ghc-options: -Wall
   build-depends:
       AOC
+    , MemoTrie
     , arithmoi
     , array
     , base
@@ -874,6 +882,7 @@ executable 2021-08
   ghc-options: -Wall
   build-depends:
       AOC
+    , MemoTrie
     , arithmoi
     , array
     , base
@@ -970,6 +979,7 @@ executable 2021-09
   ghc-options: -Wall
   build-depends:
       AOC
+    , MemoTrie
     , arithmoi
     , array
     , base
@@ -1066,6 +1076,7 @@ executable 2021-10
   ghc-options: -Wall
   build-depends:
       AOC
+    , MemoTrie
     , arithmoi
     , array
     , base
@@ -1162,6 +1173,7 @@ executable 2021-11
   ghc-options: -Wall
   build-depends:
       AOC
+    , MemoTrie
     , arithmoi
     , array
     , base
@@ -1258,6 +1270,7 @@ executable 2021-12
   ghc-options: -Wall
   build-depends:
       AOC
+    , MemoTrie
     , arithmoi
     , array
     , base
@@ -1354,6 +1367,7 @@ executable 2021-13
   ghc-options: -Wall
   build-depends:
       AOC
+    , MemoTrie
     , arithmoi
     , array
     , base
@@ -1450,6 +1464,7 @@ executable 2021-14
   ghc-options: -Wall
   build-depends:
       AOC
+    , MemoTrie
     , arithmoi
     , array
     , base
@@ -1546,6 +1561,7 @@ executable 2021-15
   ghc-options: -Wall
   build-depends:
       AOC
+    , MemoTrie
     , arithmoi
     , array
     , base
@@ -1642,6 +1658,7 @@ executable 2021-16
   ghc-options: -Wall
   build-depends:
       AOC
+    , MemoTrie
     , arithmoi
     , array
     , base
@@ -1738,6 +1755,7 @@ executable 2021-17
   ghc-options: -Wall
   build-depends:
       AOC
+    , MemoTrie
     , arithmoi
     , array
     , base
@@ -1834,6 +1852,7 @@ executable 2021-18
   ghc-options: -Wall
   build-depends:
       AOC
+    , MemoTrie
     , arithmoi
     , array
     , base
@@ -1930,6 +1949,7 @@ executable 2021-18-alt
   ghc-options: -Wall
   build-depends:
       AOC
+    , MemoTrie
     , arithmoi
     , array
     , base
@@ -2026,6 +2046,7 @@ executable 2021-19
   ghc-options: -Wall
   build-depends:
       AOC
+    , MemoTrie
     , arithmoi
     , array
     , base
@@ -2122,6 +2143,104 @@ executable 2021-19-alt
   ghc-options: -Wall
   build-depends:
       AOC
+    , MemoTrie
+    , arithmoi
+    , array
+    , base
+    , comonad
+    , containers
+    , directory
+    , fingertree
+    , kan-extensions
+    , lattices
+    , lens
+    , linear
+    , megaparsec
+    , monad-dijkstra
+    , mtl
+    , parser-combinators
+    , pretty
+    , profunctors
+    , safe
+    , selective
+    , split
+    , text
+    , unordered-containers
+    , vector
+  default-language: Haskell2010
+
+executable 2021-20
+  main-is: 20.hs
+  other-modules:
+      Paths_AOC
+  hs-source-dirs:
+      2021
+  default-extensions:
+      LambdaCase
+      AllowAmbiguousTypes
+      ApplicativeDo
+      BangPatterns
+      BlockArguments
+      ConstrainedClassMethods
+      ConstraintKinds
+      DataKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      ExtendedDefaultRules
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      HexFloatLiterals
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      LambdaCase
+      LiberalTypeSynonyms
+      MonadComprehensions
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      NamedWildCards
+      NoMonomorphismRestriction
+      NumericUnderscores
+      OverloadedStrings
+      PatternGuards
+      PatternSynonyms
+      ParallelListComp
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RecordWildCards
+      RecursiveDo
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TemplateHaskell
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeFamilies
+      TypeSynonymInstances
+      UnicodeSyntax
+      ViewPatterns
+  ghc-options: -Wall
+  build-depends:
+      AOC
+    , MemoTrie
     , arithmoi
     , array
     , base

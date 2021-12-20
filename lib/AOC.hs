@@ -12,6 +12,7 @@ module AOC
     module Control.Monad.Combinators.Expr,
     module Control.Monad.Search,
     module Control.Monad.State,
+    module Data.MemoTrie,
     module Data.Bits,
     module Data.Bool,
     module Data.Char,
@@ -68,6 +69,7 @@ import Data.Map (Map)
 import Data.Map qualified as Map
 import Data.Map.Strict qualified as MapS
 import Data.Maybe
+import Data.MemoTrie hiding (enumerate)
 import Data.Monoid
 import Data.Ord hiding (Down (..))
 import Data.PriorityQueue.FingerTree qualified as PQ
@@ -336,8 +338,16 @@ flattenWithCoords rows =
       (x, a) <- zip [0 ..] row
   ]
 
-makeGrid :: (Ord n, Enum n, Num n) => String -> (Map (n, n) Char, n, n)
-makeGrid s = (grid, width, height)
+mapToSet :: (a -> Bool) -> Map k a -> Set k
+mapToSet p = Map.keysSet . Map.filter p
+
+makeGrid :: (Ord n, Enum n, Num n) => String -> Map (n, n) Char
+makeGrid s = grid
+  where
+    (grid, _, _) = makeGrid' s
+
+makeGrid' :: (Ord n, Enum n, Num n) => String -> (Map (n, n) Char, n, n)
+makeGrid' s = (grid, width, height)
   where
     rows = lines s
     grid = Map.fromList (flattenWithCoords rows)

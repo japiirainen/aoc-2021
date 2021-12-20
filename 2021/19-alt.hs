@@ -39,7 +39,7 @@ safeHead = \case
 
 overlap :: Scanner -> Scanner -> [Pos]
 overlap as bs =
-  M.keys . M.filter (>= 12) . M.fromListWith (+) . map (,1) $
+  M.keys . M.filter (>= (12 :: Int)) . M.fromListWith (+) . map (,1) $
     diff <$> as <*> bs
 
 diff :: Pos -> Pos -> Pos

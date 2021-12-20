@@ -208,3 +208,7 @@ executables:
     source-dirs: "2021"
     main: 20.hs
     dependencies: AOC
+  2021-20-slow:
+    source-dirs: "2021"
+    main: 20-slow.hs
+    dependencies: AOC

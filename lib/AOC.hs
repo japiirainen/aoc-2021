@@ -29,6 +29,7 @@ module AOC
     module Data.Ord,
     module Data.Ratio,
     module Data.Semigroup,
+    module Data.Composition,
     module Data.Set,
     module Data.Traversable,
     module Data.Tuple,
@@ -57,6 +58,7 @@ import Control.Monad.State
 import Data.Bits
 import Data.Bool
 import Data.Char
+import Data.Composition
 import Data.Either
 import Data.Foldable
 import Data.Function

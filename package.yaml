@@ -99,6 +99,8 @@ dependencies:
   - parser-combinators
   - split
   - MemoTrie
+  - composition
+  - foldl
 
 library:
   source-dirs: 
@@ -211,4 +213,12 @@ executables:
   2021-20-slow:
     source-dirs: "2021"
     main: 20-slow.hs
+    dependencies: AOC
+  2021-21:
+    source-dirs: "2021"
+    main: 21.hs
+    dependencies: AOC
+  2021-21-slow:
+    source-dirs: "2021"
+    main: 21-slow.hs
     dependencies: AOC

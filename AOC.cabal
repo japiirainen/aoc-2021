@@ -111,9 +111,11 @@ library
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens
@@ -208,9 +210,11 @@ executable 2021-01
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens
@@ -305,9 +309,11 @@ executable 2021-02
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens
@@ -402,9 +408,11 @@ executable 2021-03
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens
@@ -499,9 +507,11 @@ executable 2021-04
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens
@@ -596,9 +606,11 @@ executable 2021-05
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens
@@ -693,9 +705,11 @@ executable 2021-06
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens
@@ -790,9 +804,11 @@ executable 2021-07
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens
@@ -887,9 +903,11 @@ executable 2021-08
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens
@@ -984,9 +1002,11 @@ executable 2021-09
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens
@@ -1081,9 +1101,11 @@ executable 2021-10
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens
@@ -1178,9 +1200,11 @@ executable 2021-11
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens
@@ -1275,9 +1299,11 @@ executable 2021-12
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens
@@ -1372,9 +1398,11 @@ executable 2021-13
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens
@@ -1469,9 +1497,11 @@ executable 2021-14
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens
@@ -1566,9 +1596,11 @@ executable 2021-15
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens
@@ -1663,9 +1695,11 @@ executable 2021-16
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens
@@ -1760,9 +1794,11 @@ executable 2021-17
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens
@@ -1857,9 +1893,11 @@ executable 2021-18
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens
@@ -1954,9 +1992,11 @@ executable 2021-18-alt
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens
@@ -2051,9 +2091,11 @@ executable 2021-19
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens
@@ -2148,9 +2190,11 @@ executable 2021-19-alt
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens
@@ -2245,9 +2289,11 @@ executable 2021-20
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens
@@ -2342,9 +2388,209 @@ executable 2021-20-slow
     , array
     , base
     , comonad
+    , composition
     , containers
     , directory
     , fingertree
+    , foldl
+    , kan-extensions
+    , lattices
+    , lens
+    , linear
+    , megaparsec
+    , monad-dijkstra
+    , mtl
+    , parser-combinators
+    , pretty
+    , profunctors
+    , safe
+    , selective
+    , split
+    , text
+    , unordered-containers
+    , vector
+  default-language: Haskell2010
+
+executable 2021-21
+  main-is: 21.hs
+  other-modules:
+      Paths_AOC
+  hs-source-dirs:
+      2021
+  default-extensions:
+      LambdaCase
+      AllowAmbiguousTypes
+      ApplicativeDo
+      BangPatterns
+      BlockArguments
+      ConstrainedClassMethods
+      ConstraintKinds
+      DataKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      ExtendedDefaultRules
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      HexFloatLiterals
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      LambdaCase
+      LiberalTypeSynonyms
+      MonadComprehensions
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      NamedWildCards
+      NoMonomorphismRestriction
+      NumericUnderscores
+      OverloadedStrings
+      PatternGuards
+      PatternSynonyms
+      ParallelListComp
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RecordWildCards
+      RecursiveDo
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TemplateHaskell
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeFamilies
+      TypeSynonymInstances
+      UnicodeSyntax
+      ViewPatterns
+  ghc-options: -Wall
+  build-depends:
+      AOC
+    , MemoTrie
+    , arithmoi
+    , array
+    , base
+    , comonad
+    , composition
+    , containers
+    , directory
+    , fingertree
+    , foldl
+    , kan-extensions
+    , lattices
+    , lens
+    , linear
+    , megaparsec
+    , monad-dijkstra
+    , mtl
+    , parser-combinators
+    , pretty
+    , profunctors
+    , safe
+    , selective
+    , split
+    , text
+    , unordered-containers
+    , vector
+  default-language: Haskell2010
+
+executable 2021-21-slow
+  main-is: 21-slow.hs
+  other-modules:
+      Paths_AOC
+  hs-source-dirs:
+      2021
+  default-extensions:
+      LambdaCase
+      AllowAmbiguousTypes
+      ApplicativeDo
+      BangPatterns
+      BlockArguments
+      ConstrainedClassMethods
+      ConstraintKinds
+      DataKinds
+      DeriveDataTypeable
+      DeriveFoldable
+      DeriveFunctor
+      DeriveGeneric
+      DeriveLift
+      DeriveTraversable
+      DerivingVia
+      DoAndIfThenElse
+      EmptyCase
+      EmptyDataDecls
+      EmptyDataDeriving
+      ExistentialQuantification
+      ExplicitForAll
+      ExtendedDefaultRules
+      FlexibleContexts
+      FlexibleInstances
+      GADTs
+      HexFloatLiterals
+      ImportQualifiedPost
+      InstanceSigs
+      KindSignatures
+      LambdaCase
+      LiberalTypeSynonyms
+      MonadComprehensions
+      MultiParamTypeClasses
+      MultiWayIf
+      NamedFieldPuns
+      NamedWildCards
+      NoMonomorphismRestriction
+      NumericUnderscores
+      OverloadedStrings
+      PatternGuards
+      PatternSynonyms
+      ParallelListComp
+      PolyKinds
+      PostfixOperators
+      RankNTypes
+      RecordWildCards
+      RecursiveDo
+      RelaxedPolyRec
+      ScopedTypeVariables
+      StandaloneDeriving
+      StandaloneKindSignatures
+      StarIsType
+      TemplateHaskell
+      TraditionalRecordSyntax
+      TupleSections
+      TypeApplications
+      TypeOperators
+      TypeFamilies
+      TypeSynonymInstances
+      UnicodeSyntax
+      ViewPatterns
+  ghc-options: -Wall
+  build-depends:
+      AOC
+    , MemoTrie
+    , arithmoi
+    , array
+    , base
+    , comonad
+    , composition
+    , containers
+    , directory
+    , fingertree
+    , foldl
     , kan-extensions
     , lattices
     , lens

@@ -222,3 +222,7 @@ executables:
     source-dirs: "2021"
     main: 21-slow.hs
     dependencies: AOC
+  2021-22:
+    source-dirs: "2021"
+    main: 22.hs
+    dependencies: AOC

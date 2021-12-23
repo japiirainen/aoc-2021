@@ -120,6 +120,10 @@ library:
     - AOC.Vector.Extra
     - AOC.Grid.Bounded
     - AOC.Functor.Fix
+    - AOC.Coord
+    - AOC.Search
+    - AOC.Queue
+    - AOC.PQueue
 
 executables:
   2021-01:
@@ -225,4 +229,8 @@ executables:
   2021-22:
     source-dirs: "2021"
     main: 22.hs
+    dependencies: AOC
+  2021-23:
+    source-dirs: "2021"
+    main: 23.hs
     dependencies: AOC

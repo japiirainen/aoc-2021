@@ -2,13 +2,13 @@ module Main where
 
 import AOC.Main (simpleMain)
 import AOC.V3 (V3 (..), (.-.))
-import qualified AOC.V3 as V3
+import AOC.V3 qualified as V3
 import Data.Char (isDigit)
 import Data.Foldable (foldl', for_)
 import Data.List (isPrefixOf)
 import Data.Maybe (maybeToList)
-import qualified Data.Vector.Unboxed as VU
-import qualified Data.Vector.Unboxed.Mutable as VUM
+import Data.Vector.Unboxed qualified as VU
+import Data.Vector.Unboxed.Mutable qualified as VUM
 
 data Box a = Box
   { bMin :: !(V3 a),

@@ -6,7 +6,7 @@ Advent of code 2021 solutions. Most problems are solved in both Haskell and Pyth
 
 ## Usage
 ```sh
-cabal run [YEAR]-[DAY] "inputs/[DAY].txt" # run a specific day
+cabal run [YEAR]-[DAY] "src/[DAY].txt" # run a specific day
 ```
 
 ## Other years

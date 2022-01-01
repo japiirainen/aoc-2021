@@ -126,119 +126,119 @@ library:
     - AOC.PQueue
 
 executables:
-  2021-01:
-    source-dirs: "2021"
+  01:
+    source-dirs: "src"
     main: 01.hs
     dependencies: AOC
-  2021-02:
-    source-dirs: "2021"
+  02:
+    source-dirs: "src"
     main: 02.hs
     dependencies: AOC
-  2021-03:
-    source-dirs: "2021"
+  03:
+    source-dirs: "src"
     main: 03.hs
     dependencies: AOC
-  2021-04:
-    source-dirs: "2021"
+  04:
+    source-dirs: "src"
     main: 04.hs
     dependencies: AOC
-  2021-05:
-    source-dirs: "2021"
+  05:
+    source-dirs: "src"
     main: 05.hs
     dependencies: AOC
-  2021-06:
-    source-dirs: "2021"
+  06:
+    source-dirs: "src"
     main: 06.hs
     dependencies: AOC
-  2021-07:
-    source-dirs: "2021"
+  07:
+    source-dirs: "src"
     main: 07.hs
     dependencies: AOC
-  2021-08:
-    source-dirs: "2021"
+  08:
+    source-dirs: "src"
     main: 08.hs
     dependencies: AOC
-  2021-09:
-    source-dirs: "2021"
+  09:
+    source-dirs: "src"
     main: 09.hs
     dependencies: AOC
-  2021-10:
-    source-dirs: "2021"
+  10:
+    source-dirs: "src"
     main: 10.hs
     dependencies: AOC
-  2021-11:
-    source-dirs: "2021"
+  11:
+    source-dirs: "src"
     main: 11.hs
     dependencies: AOC
-  2021-12:
-    source-dirs: "2021"
+  12:
+    source-dirs: "src"
     main: 12.hs
     dependencies: AOC
-  2021-13:
-    source-dirs: "2021"
+  13:
+    source-dirs: "src"
     main: 13.hs
     dependencies: AOC
-  2021-14:
-    source-dirs: "2021"
+  14:
+    source-dirs: "src"
     main: 14.hs
     dependencies: AOC
-  2021-15:
-    source-dirs: "2021"
+  15:
+    source-dirs: "src"
     main: 15.hs
     dependencies: AOC
-  2021-16:
-    source-dirs: "2021"
+  16:
+    source-dirs: "src"
     main: 16.hs
     dependencies: AOC
-  2021-17:
-    source-dirs: "2021"
+  17:
+    source-dirs: "src"
     main: 17.hs
     dependencies: AOC
-  2021-18:
-    source-dirs: "2021"
+  18:
+    source-dirs: "src"
     main: 18.hs
     dependencies: AOC
-  2021-18-alt:
-    source-dirs: "2021"
+  18-alt:
+    source-dirs: "src"
     main: 18-alt.hs
     dependencies: AOC
-  2021-19:
-    source-dirs: "2021"
+  19:
+    source-dirs: "src"
     main: 19.hs
     dependencies: AOC
-  2021-19-alt:
-    source-dirs: "2021"
+  19-alt:
+    source-dirs: "src"
     main: 19-alt.hs
     dependencies: AOC
-  2021-20:
-    source-dirs: "2021"
+  20:
+    source-dirs: "src"
     main: 20.hs
     dependencies: AOC
-  2021-20-slow:
-    source-dirs: "2021"
+  20-slow:
+    source-dirs: "src"
     main: 20-slow.hs
     dependencies: AOC
-  2021-21:
-    source-dirs: "2021"
+  21:
+    source-dirs: "src"
     main: 21.hs
     dependencies: AOC
-  2021-21-slow:
-    source-dirs: "2021"
+  21-slow:
+    source-dirs: "src"
     main: 21-slow.hs
     dependencies: AOC
-  2021-22:
-    source-dirs: "2021"
+  22:
+    source-dirs: "src"
     main: 22.hs
     dependencies: AOC
-  2021-23:
-    source-dirs: "2021"
+  23:
+    source-dirs: "src"
     main: 23.hs
     dependencies: AOC
-  2021-24:
-    source-dirs: "2021"
+  24:
+    source-dirs: "src"
     main: 24.hs
     dependencies: AOC
-  2021-25:
-    source-dirs: "2021"
+  25:
+    source-dirs: "src"
     main: 25.hs
     dependencies: AOC

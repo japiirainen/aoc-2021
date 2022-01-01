@@ -138,12 +138,12 @@ library
     , vector
   default-language: Haskell2010
 
-executable 2021-01
+executable 01
   main-is: 01.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -237,12 +237,12 @@ executable 2021-01
     , vector
   default-language: Haskell2010
 
-executable 2021-02
+executable 02
   main-is: 02.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -336,12 +336,12 @@ executable 2021-02
     , vector
   default-language: Haskell2010
 
-executable 2021-03
+executable 03
   main-is: 03.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -435,12 +435,12 @@ executable 2021-03
     , vector
   default-language: Haskell2010
 
-executable 2021-04
+executable 04
   main-is: 04.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -534,12 +534,12 @@ executable 2021-04
     , vector
   default-language: Haskell2010
 
-executable 2021-05
+executable 05
   main-is: 05.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -633,12 +633,12 @@ executable 2021-05
     , vector
   default-language: Haskell2010
 
-executable 2021-06
+executable 06
   main-is: 06.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -732,12 +732,12 @@ executable 2021-06
     , vector
   default-language: Haskell2010
 
-executable 2021-07
+executable 07
   main-is: 07.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -831,12 +831,12 @@ executable 2021-07
     , vector
   default-language: Haskell2010
 
-executable 2021-08
+executable 08
   main-is: 08.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -930,12 +930,12 @@ executable 2021-08
     , vector
   default-language: Haskell2010
 
-executable 2021-09
+executable 09
   main-is: 09.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -1029,12 +1029,12 @@ executable 2021-09
     , vector
   default-language: Haskell2010
 
-executable 2021-10
+executable 10
   main-is: 10.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -1128,12 +1128,12 @@ executable 2021-10
     , vector
   default-language: Haskell2010
 
-executable 2021-11
+executable 11
   main-is: 11.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -1227,12 +1227,12 @@ executable 2021-11
     , vector
   default-language: Haskell2010
 
-executable 2021-12
+executable 12
   main-is: 12.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -1326,12 +1326,12 @@ executable 2021-12
     , vector
   default-language: Haskell2010
 
-executable 2021-13
+executable 13
   main-is: 13.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -1425,12 +1425,12 @@ executable 2021-13
     , vector
   default-language: Haskell2010
 
-executable 2021-14
+executable 14
   main-is: 14.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -1524,12 +1524,12 @@ executable 2021-14
     , vector
   default-language: Haskell2010
 
-executable 2021-15
+executable 15
   main-is: 15.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -1623,12 +1623,12 @@ executable 2021-15
     , vector
   default-language: Haskell2010
 
-executable 2021-16
+executable 16
   main-is: 16.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -1722,12 +1722,12 @@ executable 2021-16
     , vector
   default-language: Haskell2010
 
-executable 2021-17
+executable 17
   main-is: 17.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -1821,12 +1821,12 @@ executable 2021-17
     , vector
   default-language: Haskell2010
 
-executable 2021-18
+executable 18
   main-is: 18.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -1920,12 +1920,12 @@ executable 2021-18
     , vector
   default-language: Haskell2010
 
-executable 2021-18-alt
+executable 18-alt
   main-is: 18-alt.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -2019,12 +2019,12 @@ executable 2021-18-alt
     , vector
   default-language: Haskell2010
 
-executable 2021-19
+executable 19
   main-is: 19.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -2118,12 +2118,12 @@ executable 2021-19
     , vector
   default-language: Haskell2010
 
-executable 2021-19-alt
+executable 19-alt
   main-is: 19-alt.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -2217,12 +2217,12 @@ executable 2021-19-alt
     , vector
   default-language: Haskell2010
 
-executable 2021-20
+executable 20
   main-is: 20.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -2316,12 +2316,12 @@ executable 2021-20
     , vector
   default-language: Haskell2010
 
-executable 2021-20-slow
+executable 20-slow
   main-is: 20-slow.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -2415,12 +2415,12 @@ executable 2021-20-slow
     , vector
   default-language: Haskell2010
 
-executable 2021-21
+executable 21
   main-is: 21.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -2514,12 +2514,12 @@ executable 2021-21
     , vector
   default-language: Haskell2010
 
-executable 2021-21-slow
+executable 21-slow
   main-is: 21-slow.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -2613,12 +2613,12 @@ executable 2021-21-slow
     , vector
   default-language: Haskell2010
 
-executable 2021-22
+executable 22
   main-is: 22.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -2712,12 +2712,12 @@ executable 2021-22
     , vector
   default-language: Haskell2010
 
-executable 2021-23
+executable 23
   main-is: 23.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -2811,12 +2811,12 @@ executable 2021-23
     , vector
   default-language: Haskell2010
 
-executable 2021-24
+executable 24
   main-is: 24.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
@@ -2910,12 +2910,12 @@ executable 2021-24
     , vector
   default-language: Haskell2010
 
-executable 2021-25
+executable 25
   main-is: 25.hs
   other-modules:
       Paths_AOC
   hs-source-dirs:
-      2021
+      src
   default-extensions:
       LambdaCase
       AllowAmbiguousTypes
